@@ -1,0 +1,33 @@
+{% extends "template.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block main %}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class=flashes>
+            <div class="toast toast-center">
+                {% for message in messages %}
+                <div class="alert alert-success">
+                    <span class="text-center">{{ message }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </ul>
+    {% endif %}
+{% endwith %}
+
+<div class="w-full md:w-3/4 lg:w-1/2 mx-auto">
+    {% include "./home/contents.html" %}
+</div>
+<div>
+    <p>Current Users</p>
+    <div>
+        {% for user in users %}
+        <p>{{ user.username }}</p>
+        <p>{{ user.email }}</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="../static/css/output.css">
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body class="bg-base-300 text-gray-300 min-h-screen flex flex-col">
+    <header class="sticky w-full top-0">
+        <div class="navbar bg-base-100">
+            <a href="/" class="btn btn-ghost text-xl">Taka Recipes</a>
+        </div>
+    </header>
+    <main class="grow p-2 flex items-center">
+        {% block main %}{% endblock %}
+    </main>
+</body>
+</html>
