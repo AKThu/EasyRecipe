@@ -1,0 +1,20 @@
+
+<div
+    class="hero min-h-screen min-w-screen"    
+    style="background-image: url(../../static/images/hero_background.jpg);"
+    >
+    <div class="hero-overlay bg-opacity-60"></div>
+    <div class="hero-content text-neutral-content text-center">
+    <div class="max-w-xl z-auto">
+        <h1 class="mb-5 text-5xl font-bold text-center leading-tight">Discover your inner Chef</h1>
+        <p class="mb-5">
+            Unleash your culinary creativity and embark on a flavorful journey.
+            Whether you're a seasoned home cook or a kitchen novice, our collection of
+            recipes offers something for everyone.
+        </p>
+        {% if not session["user_id"] %}
+            <a class="bg-slate-100 hover:bg-slate-300 text-slate-800 p-3 rounded-lg transition-500 text-sm font-bold" href="/login">Get Started</a>
+        {% endif %}
+    </div>
+    </div>
+</div>

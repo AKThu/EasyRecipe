@@ -7,6 +7,7 @@ from helpers import error, password_hash, check_password
 
 @app.route("/")
 def home():
+    # TODO
     users = db.session.execute(db.select(User).order_by(User.username)).scalars().fetchall()
     return render_template("home.html", users=users)
 
@@ -51,7 +52,7 @@ def register():
         session["user_id"] = user.id
 
         # redirect user to the home page
-        flash("Registered successfully!")
+        flash("Registered successfully!", "success")
         return redirect("/")
 
     # if user reached the route via GET method
@@ -84,7 +85,7 @@ def login():
         session["user_id"] = user.id
 
         # redirect user to the home page
-        flash("Login successful")
+        flash("Login successful", "success")
         return redirect("/")
 
     # if user reached the route via GET method
@@ -95,8 +96,9 @@ def login():
 @app.route("/logout")
 def logout():
     session.clear()
-    flash("Logged out")
+    flash("Logged out", "success")
     return redirect("/")
+
 
 if __name__ == "__main__":
     with app.app_context():

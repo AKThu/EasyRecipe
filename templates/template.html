@@ -12,7 +12,7 @@
 </head>
 
 <body class="bg-slate-100 text-slate-900 min-h-screen flex flex-col font-poppins">
-  <header class="sticky w-full top-0">
+  <header class="sticky w-full top-0 z-50">
     <div class="navbar bg-slate-100 drop-shadow-md">
       <div class="flex-1">
         <!-- Navbar Logo -->
@@ -20,35 +20,45 @@
       </div>
       <div class="flex-none">
         {% if session["user_id"] %}
-        <!-- User Profile -->
-        <div class="dropdown dropdown-end">
-          <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-            <div class="w-10 rounded-full">
-              <img alt="User profile"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+          <!-- User Profile -->
+          <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+              <div class="w-10 rounded-full">
+                <img alt="User profile"
+                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+              </div>
             </div>
+            <ul tabindex="0" class="menu menu-sm dropdown-content bg-slate-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+              <li>
+                <a class="justify-between">
+                  Profile
+                  <span class="badge">New</span>
+                </a>
+              </li>
+              <li><a>Settings</a></li>
+              <li><a href="/logout">Logout</a></li>
+            </ul>
           </div>
-          <ul tabindex="0" class="menu menu-sm dropdown-content bg-slate-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-            <li>
-              <a class="justify-between">
-                Profile
-                <span class="badge">New</span>
-              </a>
-            </li>
-            <li><a>Settings</a></li>
-            <li><a href="/logout">Logout</a></li>
-          </ul>
-        </div>
         {% else %}
-        <div>
-          <a href="/register" class="btn btn-ghost text-base">Register</a>
-          <a href="/login" class="btn btn-ghost text-base">Log In</a>
-        </div>
+          <!-- Register or Login -->
+          <!-- For large screens -->
+          <div class="hidden lg:block">
+            <a href="/register" class="btn btn-ghost text-base">Register</a>
+            <a href="/login" class="btn btn-ghost text-base">Login</a>
+          </div>
+          <!-- For small screens -->
+          <div class="dropdown dropdown-end block lg:hidden">
+            <div tabindex="0" role="button" class="btn btn-ghost m-1">Menu</div>
+            <ul tabindex="0" class="dropdown-content menu bg-slate-100 rounded-box z-[1] w-52 p-2 shadow">
+              <li><a href="/register">Register</a></li>
+              <li><a href="/login">Login</a></li>
+            </ul>
+          </div>
         {% endif %}
       </div>
     </div>
   </header>
-  <main class="grow p-2 flex flex-col items-center justify-center font-poppins">
+  <main class="grow flex flex-col items-center justify-center font-poppins">
     {% block main %}{% endblock %}
   </main>
 </body>
