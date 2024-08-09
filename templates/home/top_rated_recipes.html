@@ -1,0 +1,49 @@
+<h3 class="text-center text-2xl font-medium text-base-content">Top Rated Recipes</h3>
+<div class="py-10">
+    {% for key in range(1, 6) %}
+    <div id="tr{{key}}" class="card md:card-side bg-base-100 shadow-xl w-full lg:w-2/3 mx-auto transition duration-500 {{ 'hidden' if key != 1}}">
+        <figure class="size-full md:size-60">
+            <img src="https://www.recipetineats.com/tachyon/2024/08/Hokkien-noodles-with-chicken_2.jpg?resize=747%2C747&zoom=1" alt="Food"/>
+        </figure>
+        <div class="card-body">
+            <h2 class="card-title">{{ key }}</h2>
+            <p>Click the button to watch on Jetflix app.</p>
+            <div class="flex flex-row justify-between gap-5">
+                <div class="card-actions justify-end">
+                    <a href="/recipe/pizza" class="btn btn-accent">See recipe</a>
+                </div>
+                <div>
+                    <a onclick="prevSlide(event)" id="{{key - 1 if key > 1 else 5}}" class="btn hover:bg-accent hover:text-accent-content">❮</a>
+                    <a onclick="nextSlide(event)" id="{{key + 1 if key < 5 else 1}}" class="btn hover:bg-accent hover:text-accent-content">❯</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% block javascript %}
+    <script>
+        function prevSlide(e) {
+            let prevId = `#tr${e.target.id}`;
+            let currentId = `#tr${e.target.id == 5 ? 1 : parseInt(e.target.id) + 1}`;
+
+            // show previous slide
+            document.querySelector(prevId).classList.remove('hidden');
+
+            // hide current slide
+            document.querySelector(currentId).classList.add('hidden');
+        }
+
+        function nextSlide(e) {
+            let nextId = `#tr${e.target.id}`;
+            let currentId = `#tr${e.target.id == 1 ? 5 : parseInt(e.target.id) - 1}`;
+
+            // show next slide
+            document.querySelector(nextId).classList.remove('hidden');
+
+            // hide current slide
+            document.querySelector(currentId).classList.add('hidden');
+        }
+    </script>
+{% endblock %}

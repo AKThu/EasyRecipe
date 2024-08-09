@@ -1,0 +1,30 @@
+{% extends "template.html" %}
+
+{% block title %}Recipes{% endblock %}
+
+{% block main %}
+<div class="p-5 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5 lg:gap-12 md:justify-center">
+    {% for index in range(18) %}
+    <a href="/recipe/pizza" class="card card-compact bg-base-100 shadow-xl w-fit">
+        <figure>
+            <img src="https://pinchofyum.com/cdn-cgi/image/width=360,height=360,fit=crop/wp-content/uploads/Oat-Bran-Finished-scaled.jpg" alt="pizza" />
+        </figure>
+        <div class="card-body">
+            <h2 class="card-title w-fit hover:underline hover:text-rose-500">Pizza</h2>
+            <div>
+                rating - *****
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+<div class="join my-10">
+    <button class="join-item btn">«</button>
+    <button class="join-item btn">1</button>
+    <button class="join-item btn btn-active bg-accent text-accent-content">2</button>
+    <button class="join-item btn">3</button>
+    <button class="join-item btn btn-disabled">...</button>
+    <button class="join-item btn">100</button>
+    <button class="join-item btn">»</button>
+</div>
+{% endblock %}

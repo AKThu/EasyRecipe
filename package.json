@@ -2,6 +2,7 @@
   "name": "junktech_pos",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tailwind": "npx tailwindcss -i ./static/css/input.css -o ./static/css/output.css --watch"

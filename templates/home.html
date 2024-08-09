@@ -20,17 +20,19 @@
         {% include "./home/hero_section.html" %}
     </div>
 
-    <div class="w-full md:w-3/4 lg:w-1/2 mx-auto">
-        {% include "./home/contents.html" %}
-    </div>
-    <div>
-        <p>Current Users</p>
-        <div>
-            {% for user in users %}
-            <p>{{ user.username }}</p>
-            <p>{{ user.email }}</p>
-            {% endfor %}
+    <div id="body" class="mx-3 lg:mx-5">
+        <div id="newly-added-recipes" class="mt-10 lg:mt-20">
+            {% include "./home/newly_added_recipes.html" %}
+            <div class="text-center">
+                <a href="/recipe/pizza" class="hover:underline text-rose-500 hover:text-blue-600">Discover all recipes ></a>
+            </div>
         </div>
+
+        <div id="top-rated-recipes" class="mt-10">
+            {% include "./home/top_rated_recipes.html" %}
+        </div>
+
+        
     </div>
 </div>
 {% endblock %}

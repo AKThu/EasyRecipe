@@ -100,6 +100,16 @@ def logout():
     return redirect("/")
 
 
+@app.route("/recipe")
+def recipe():
+    return render_template("/recipe/all_recipes.html")
+
+
+@app.route("/recipe/pizza")
+def recipe_detail():
+    return render_template("/recipe/recipe_detail.html")
+
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-scrollbar">
 
 <head>
   <meta charset="UTF-8">
@@ -11,9 +11,10 @@
   <title>{% block title %}{% endblock %}</title>
 </head>
 
-<body class="bg-slate-100 text-slate-900 min-h-screen flex flex-col font-poppins">
-  <header class="sticky w-full top-0 z-50">
-    <div class="navbar bg-slate-100 drop-shadow-md">
+<body class="bg-base-300 text-base-content min-h-screen flex flex-col font-poppins transition duration-500">
+  <header class="sticky w-full p-2 top-0 z-50">
+    <!-- Navbar -->
+    <div class="navbar bg-base-100 drop-shadow-md rounded-lg h-fit">
       <div class="flex-1">
         <!-- Navbar Logo -->
         <a href="/" class="btn btn-ghost text-xl">Taka Recipes</a>
@@ -23,12 +24,13 @@
           <!-- User Profile -->
           <div class="dropdown dropdown-end">
             <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-              <div class="w-10 rounded-full">
+              <div class="w-8 rounded-full">
                 <img alt="User profile"
                   src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
               </div>
             </div>
-            <ul tabindex="0" class="menu menu-sm dropdown-content bg-slate-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+            <!-- User dropdown -->
+            <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
               <li>
                 <a class="justify-between">
                   Profile
@@ -46,10 +48,10 @@
             <a href="/register" class="btn btn-ghost text-base">Register</a>
             <a href="/login" class="btn btn-ghost text-base">Login</a>
           </div>
-          <!-- For small screens -->
+          <!-- Menu Button For small screens -->
           <div class="dropdown dropdown-end block lg:hidden">
-            <div tabindex="0" role="button" class="btn btn-ghost m-1">Menu</div>
-            <ul tabindex="0" class="dropdown-content menu bg-slate-100 rounded-box z-[1] w-52 p-2 shadow">
+            <div tabindex="0" role="button" class="btn btn-accent text-accent-content m-1">Menu</div>
+            <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
               <li><a href="/register">Register</a></li>
               <li><a href="/login">Login</a></li>
             </ul>
@@ -58,9 +60,20 @@
       </div>
     </div>
   </header>
+
   <main class="grow flex flex-col items-center justify-center font-poppins">
     {% block main %}{% endblock %}
   </main>
+
+  <footer class="bg-base-300">
+    <div class="text-center my-4">
+      <p class="text-slate-500">Copyright © <span id="date"></span> - All right reserved</p>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelector('#date').textContent = new Date().getFullYear();
+  </script>
 </body>
 
 </html>
