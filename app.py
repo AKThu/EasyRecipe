@@ -1,6 +1,6 @@
 from flask import render_template, redirect, request, flash, session
 from config import app, db
-from model import User
+from model import User, Recipe
 from http import HTTPStatus
 from helpers import error, password_hash, check_password
 
@@ -100,14 +100,31 @@ def logout():
     return redirect("/")
 
 
-@app.route("/recipe")
-def recipe():
+@app.route("/recipes")
+def recipes():
     return render_template("/recipe/all_recipes.html")
 
 
-@app.route("/recipe/pizza")
-def recipe_detail():
-    return render_template("/recipe/recipe_detail.html")
+@app.route("/recipe/<recipe_id>")
+def recipe_detail(recipe_id):
+
+    # Query recipe from database
+    recipe = db.session.execute(db.select(Recipe).filter_by(id=recipe_id)).scalar_one_or_none()
+
+    # If recipe is not found
+    if not recipe:
+        return render_template("error.html", error=error(HTTPStatus.NOT_FOUND, "Not Found"))
+    
+    if recipe.cook_time_in_minutes >= 60:
+        recipe.cook_time_hour = recipe.cook_time_in_minutes // 60
+        recipe.cook_time_minute = recipe.cook_time_in_minutes % 60
+    else:
+        recipe.cook_time_hour = None
+        recipe.cook_time_minute = recipe.cook_time_in_minutes
+    
+    print(type(recipe))
+    
+    return render_template("/recipe/recipe_detail.html", recipe=recipe)
 
 
 if __name__ == "__main__":

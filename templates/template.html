@@ -11,7 +11,7 @@
   <title>{% block title %}{% endblock %}</title>
 </head>
 
-<body class="bg-base-300 text-base-content min-h-screen flex flex-col font-poppins transition duration-500">
+<body class="bg-base-300 text-base-content min-h-screen flex flex-col font-poppins transition duration-500 selection:bg-accent selection:text-accent-content">
   <header class="sticky w-full p-2 top-0 z-50">
     <!-- Navbar -->
     <div class="navbar bg-base-100 drop-shadow-md rounded-lg h-fit">
@@ -65,7 +65,7 @@
     {% block main %}{% endblock %}
   </main>
 
-  <footer class="bg-base-300">
+  <footer class="bg-base-100">
     <div class="text-center my-4">
       <p class="text-slate-500">Copyright © <span id="date"></span> - All right reserved</p>
     </div>

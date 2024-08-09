@@ -3,46 +3,38 @@
 {% block title %}Recipe name{% endblock %}
 
 {% block main %}
-<div class="w-screen lg:w-[1024px] mx-auto p-5">
-    <div class="flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-5 w-full lg:w-[1024px] mx-auto">
+<div>{{ recipe.ingredients[0] }}</div>
+<div class="w-screen lg:w-[1024px] mx-auto p-5 mb-10">
+    <div class="flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-5 w-full mx-auto">
         <div class="w-full md:w-[400px] lg:w-[500px]">
-            <img class="object-cover w-full h-96 rounded-lg drop-shadow-lg" src="https://www.allrecipes.com/thmb/xgXBatx9NprfI5LWZzrc4PAObyU=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/140422-onigiri-japanese-rice-balls-ddmfs-Beauty-3x4-1-aa650c90910247d086e22c57b8402367.jpg" alt="pizza">
-            <div class="mt-5 drop-shadow-lg bg-base-100 rounded-lg">
+            <img class="object-cover w-full h-72 lg:h-96 rounded-lg drop-shadow-lg" src="https://www.allrecipes.com/thmb/xgXBatx9NprfI5LWZzrc4PAObyU=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/140422-onigiri-japanese-rice-balls-ddmfs-Beauty-3x4-1-aa650c90910247d086e22c57b8402367.jpg" alt="pizza">
+            <div class="mt-10 drop-shadow-lg bg-base-100 rounded-lg">
                 <div class="h-2 bg-accent"></div>
-                <div class="grid grid-cols-3">
+                <div class="grid grid-rows-2 text-sm md:text-base">
                     <div class="p-3">
-                        <p class="font-bold">Prep Time:</p>
-                        <p class="font-light hover:text-rose-500">20 mins</p>
+                        <span class="font-bold">Cook Time:</span>
+                        <span class="hover:text-rose-500 ml-3 text-right">
+                            {% if recipe.cook_time_hour %}
+                                {{ recipe.cook_time_hour }}{{ " hour " if recipe.cook_time_hour == 1 else " hours "}}
+                            {% endif %}
+                            {% if recipe.cook_time_minute %}
+                                {{ recipe.cook_time_minute }}{{ " minute" if recipe.cook_time_minute == 1 else " minutes"}}
+                            {% endif %}
+                        </span>
                     </div>
                     <div class="p-3">
-                        <p class="font-bold">Cook Time:</p>
-                        <p class="font-light hover:text-rose-500">20 mins</p>
-                    </div>
-                    <div class="p-3">
-                        <p class="font-bold">Additional Time:</p>
-                        <p class="font-light hover:text-rose-500">20 mins</p>
-                    </div>
-                    <div class="p-3">
-                        <p class="font-bold">Total Time:</p>
-                        <p class="font-light hover:text-rose-500">1 hour</p>
-                    </div>
-                    <div class="p-3">
-                        <p class="font-bold">Servings:</p>
-                        <p class="font-light hover:text-rose-500">4</p>
-                    </div>
-                    <div class="p-3">
-                        <p class="font-bold">Yield:</p>
-                        <p class="font-light hover:text-rose-500">8 onigiri</p>
+                        <span class="font-bold">Servings:</span>
+                        <span class="hover:text-rose-500 ml-3">4</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="drop-shadow-lg bg-base-100 rounded-lg w-full lg:w-[500px]">
+        <div class="drop-shadow-lg bg-base-100 rounded-lg w-full">
             <div class="h-2 bg-accent"></div>
             <div class="p-3">
                 <h3 class="text-2xl font-bold">Ingredients</h3>
-                <ul class="list-disc ml-5 mt-5">
+                <ul class="list-disc ml-5 mt-5 text-sm md:text-base">
                     <li class="my-2 hover:text-rose-500">4 cups uncooked short-grain white rice</li>
                     <li class="my-2 hover:text-rose-500">5 1/2 cups water, divided</li>
                     <li class="my-2 hover:text-rose-500">1/4 teaspoon salt</li>
