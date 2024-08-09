@@ -3,7 +3,6 @@
 {% block title %}Recipe name{% endblock %}
 
 {% block main %}
-<div>{{ recipe.ingredients[0] }}</div>
 <div class="w-screen lg:w-[1024px] mx-auto p-5 mb-10">
     <div class="flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-5 w-full mx-auto">
         <div class="w-full md:w-[400px] lg:w-[500px]">
@@ -24,7 +23,7 @@
                     </div>
                     <div class="p-3">
                         <span class="font-bold">Servings:</span>
-                        <span class="hover:text-rose-500 ml-3">4</span>
+                        <span class="hover:text-rose-500 ml-3">{{ recipe.servings }}</span>
                     </div>
                 </div>
             </div>
@@ -35,39 +34,24 @@
             <div class="p-3">
                 <h3 class="text-2xl font-bold">Ingredients</h3>
                 <ul class="list-disc ml-5 mt-5 text-sm md:text-base">
-                    <li class="my-2 hover:text-rose-500">4 cups uncooked short-grain white rice</li>
-                    <li class="my-2 hover:text-rose-500">5 1/2 cups water, divided</li>
-                    <li class="my-2 hover:text-rose-500">1/4 teaspoon salt</li>
-                    <li class="my-2 hover:text-rose-500">1/4 cup bonito shavings (dry fisth flakes)</li>
-                    <li class="my-2 hover:text-rose-500">2 sheets nori (dry seaweed), cut into 1/2-inch strips</li>
-                    <li class="my-2 hover:text-rose-500">2 tablespoons sesame seeds</li>
+                    {% for ingredient in recipe.ingredients %}
+                    <li class="my-2 hover:text-rose-500">{{ ingredient }}</li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
     </div>
     <div id="instructions" class="mt-10">
         <h2 class="font-bold text-2xl mb-5">Instructions</h2>
+        {% for instruction in recipe.instructions %}
         <div class="collapse collapse-plus bg-base-100 my-3 drop-shadow-lg">
             <input type="checkbox" />
-            <div class="collapse-title text-xl font-medium">Step 1</div>
+            <div class="collapse-title text-xl font-medium">Step {{ loop.index }}</div>
             <div class="collapse-content">
-                <p>Wash rice in a mesh strainer until water runs clear. Combine washed rice and 4 1/2 cups water in a saucepan. Bring to a boil over high heat, stirring occasionally. Reduce heat to low; cover, and simmer rice until water is absorbed, 15 to 20 minutes. Let rice rest for 15 minutes to continue to steam and become tender. Allow cooked rice to cool.</p>
+                <p>{{ instruction }}</p>
             </div>
         </div>
-        <div class="collapse collapse-plus bg-base-100 my-3 drop-shadow-lg">
-            <input type="checkbox" />
-            <div class="collapse-title text-xl font-medium">Step 2</div>
-            <div class="collapse-content">
-                <p>Combine remaining 1 cup water with salt in a small bowl; use to dampen hands before handling rice. Divide cooked rice into 8 equal portions. Use one portion of rice for each onigiri.</p>
-            </div>
-        </div>
-        <div class="collapse collapse-plus bg-base-100 my-3 drop-shadow-lg">
-            <input type="checkbox" />
-            <div class="collapse-title text-xl font-medium">Step 3</div>
-            <div class="collapse-content">
-                <p>Divide one portion of rice in two. Create a dimple in rice and fill with a heaping teaspoon of bonito flakes. Cover with remaining portion of rice and press lightly to enclose filling inside rice ball. Gently press rice to shape into a triangle; wrap with a strip of nori and sprinkle with sesame seeds. Repeat with remaining portions of rice.</p>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
