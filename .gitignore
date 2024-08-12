@@ -1,5 +1,7 @@
 __pycache__/
+instance/
 node_modules/
+storage/
 venv/
 /test.py
 /.env

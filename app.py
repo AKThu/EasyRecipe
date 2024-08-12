@@ -1,8 +1,11 @@
+import os
+
 from flask import render_template, redirect, request, flash, session
 from config import app, db
 from model import User, Recipe
 from http import HTTPStatus
-from helpers import error, password_hash, check_password
+from helpers import error, password_hash, check_password, allowed_file
+from werkzeug.utils import secure_filename
 
 
 @app.route("/")
@@ -107,24 +110,38 @@ def recipes():
 
 @app.route("/recipe/<recipe_id>")
 def recipe_detail(recipe_id):
-
     # Query recipe from database
     recipe = db.session.execute(db.select(Recipe).filter_by(id=recipe_id)).scalar_one_or_none()
-
     # If recipe is not found
     if not recipe:
         return render_template("error.html", error=error(HTTPStatus.NOT_FOUND, "Not Found"))
-    
     if recipe.cook_time_in_minutes >= 60:
         recipe.cook_time_hour = recipe.cook_time_in_minutes // 60
         recipe.cook_time_minute = recipe.cook_time_in_minutes % 60
     else:
         recipe.cook_time_hour = None
         recipe.cook_time_minute = recipe.cook_time_in_minutes
-    
-    print(type(recipe))
-    
     return render_template("/recipe/recipe_detail.html", recipe=recipe)
+
+
+@app.route("/upload", methods=["GET", "POST"])
+def upload():
+    if request.method == "POST":
+
+        # handle image upload
+        if 'image' not in request.files:
+            flash('No image part')
+            return redirect(request.url)
+        image = request.files['image']
+        if image.filename == '':
+            flash('Image not selected')
+            return redirect(request.url)
+        
+        if image and allowed_file(image.filename):
+            filename = secure_filename(image.filename)
+            image.save(os.part.join(app.config[os.getenv('UPLOAD_FOLDER')], filename))
+    else:
+        return render_template("/upload.html")
 
 
 if __name__ == "__main__":

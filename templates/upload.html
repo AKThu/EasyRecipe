@@ -1,0 +1,151 @@
+{% extends "template.html" %}
+
+{% block title %}Create a recipe{% endblock %}
+
+{% block main %}
+
+    <form action="/upload" class="w-full flex flex-col gap-10 p-5">
+        <div class="flex flex-row gap-5">
+            <div class="w-1/2 flex flex-col items-center">
+                <!-- image -->
+                <label class="form-control w-full max-w-xs mb-5">
+                    <div class="label">
+                        <span class="label-text">Cover Image (.png, .jpg, .jpeg)</span>
+                    </div>
+                    <input type="file" class="file-input file-input-bordered w-full max-w-xs" />
+                </label>
+
+                <!-- recipe name -->
+                <label class="form-control w-full max-w-xs mb-5">
+                    <div class="label">
+                        <span class="label-text">Recipe Name</span>
+                    </div>
+                    <input type="text" name="name" autocomplete="off" placeholder="Potato Salad" autofocus class="input input-bordered w-full max-w-xs">
+                </label>
+
+                <!-- cook time -->
+                <label class="form-control w-full max-w-xs mb-5">
+                    <div class="label">
+                        <span class="label-text">Recipe Name</span>
+                    </div>
+                    <label class="flex items-center gap-2">
+                        <input type="number" min="0" max="24" name="hours" autocomplete="off" placeholder="0" class="input input-bordered w-full max-w-xs"> hours
+                        <input type="number" min="0" max="59" name="minutes" autocomplete="off" placeholder="0" class="input input-bordered w-full max-w-xs"> minutes
+                    </label>
+                </label>
+
+                <!-- servings -->
+                <label class="form-control w-full max-w-xs mb-5">
+                    <div class="label">
+                        <span class="label-text">Servings</span>
+                    </div>
+                    <input type="number" min="1" max="100" name="servings" autocomplete="off" placeholder="3" class="input input-bordered w-full max-w-xs">
+                </label>
+            </div>
+            <div class="w-1/2">
+                <!-- ingredients -->
+                <div class="label">
+                    <span class="label-text">Ingredients</span>
+                </div>
+                <textarea name="ingredients" class="textarea textarea-bordered w-full h-full no-scrollbar" placeholder="4 cups of uncooked short-grain white rice&#10;5 ½ cups water, divided"></textarea>
+            </div>
+        </div>
+        <div class="w-full">
+            <!-- instructions -->
+            <p>Instructions</p>
+            <div class="mt-3" id="1">
+                <div class="label">
+                    <span class="label-text group">Step 1</span>
+                </div>
+                <textarea name="step1" placeholder="Wash rice in a mesh strainer until water runs clear." class="textarea textarea-bordered w-full no-scrollbar"></textarea>
+            </div>
+            <div>
+                <button class="btn btn-primary mt-3" id="addstep">Add step</button>
+                <button class="btn btn-error text-white mt-3" id="removestep">Remove step</button>
+            </div>
+        </div>
+    </form>
+
+    {% block javascript %}
+        <script>
+
+            document.addEventListener('DOMContentLoaded', () => {
+
+                // making the textarea grows automatically
+                const textareas = [...document.querySelectorAll('textarea')];
+                textareas.forEach((textarea) => {
+                    textarea.addEventListener('input', (e) => {
+                        textarea.style.height = 'auto';
+                        textarea.style.height = `${textarea.scrollHeight}px`;
+                    });
+                });
+
+                // add step button function
+                const addStep = document.querySelector('#addstep');
+                addStep.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    // first previousSibling is for the whitespace text node between the button and the step which is not visible
+                    const previousStep = e.target.parentNode.previousSibling.previousSibling;
+                    let current_step = parseInt(previousStep.id) + 1;
+
+                    // create <div class="mt-3" id="{current_step}"></div>
+                    const newStep = document.createElement("div");
+                    newStep.classList.add("mt-3");
+                    newStep.setAttribute("id", current_step);
+
+                    // create <div class="label"></div>
+                    const label = document.createElement("div");
+                    label.classList.add("label");
+
+                    // create <span class="label-text"></span>
+                    const labelText = document.createElement("span");
+                    labelText.classList.add("label-text");
+
+                    // create textNode "Step {current_step}"
+                    const stepText = document.createTextNode(`Step ${current_step}`);
+
+
+                    // create <textarea name="step${current_step}" class="textarea textarea-bordered w-full no-scrollbar"></textarea>
+                    const textareaNode = document.createElement("textarea");
+                    textareaNode.setAttribute("name", `step${current_step}`);
+                    textareaNode.classList.add("textarea","textarea-bordered", "w-full", "no-scrollbar");
+
+                    // makes the textarea grows automatically
+                    textareaNode.addEventListener('input', (e) => {
+                        textareaNode.style.height = 'auto';
+                        textareaNode.style.height = `${textareaNode.scrollHeight}px`;
+                    });
+
+                    // append all nodes to create a single element
+                    labelText.appendChild(stepText);
+                    label.appendChild(labelText);
+                    newStep.appendChild(label);
+                    newStep.appendChild(textareaNode);
+
+                    // add the element to the DOM
+                    previousStep.after(newStep);
+
+                });
+
+                // remove step button function
+                let removeStep = document.querySelector('#removestep');
+                removeStep.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    // first previousSibling is for the whitespace text node between the button and the step which is not visible
+                    const lastStep = e.target.parentNode.previousSibling.previousSibling;
+                    
+                    // make step 1 can't be removed
+                    if (lastStep.id != '1') {
+                        lastStep.remove();
+                    }
+                })
+
+            });
+
+        
+        </script>
+    {% endblock %}
+
+{% endblock %}

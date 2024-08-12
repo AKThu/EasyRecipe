@@ -16,3 +16,4 @@ class Recipe(db.Model):
     servings = mapped_column(Integer, nullable=False)
     ingredients = mapped_column(JSON, nullable=False)
     instructions = mapped_column(JSON, nullable=False)
+    image = mapped_column(String(255), nullable=False)

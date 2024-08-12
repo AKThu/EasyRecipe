@@ -1,4 +1,5 @@
 from hashlib import sha256
+from os import getenv
 
 def error(http_status, description):
     return {
@@ -14,3 +15,6 @@ def check_password(user, password):
     if user.password == password_hash(password):
         return True
     return False
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in getenv("ALLOWED_EXTENSIONS")
