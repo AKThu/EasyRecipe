@@ -1,5 +1,6 @@
 from hashlib import sha256
-from os import getenv
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 def error(http_status, description):
     return {
@@ -17,4 +18,4 @@ def check_password(user, password):
     return False
 
 def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in getenv("ALLOWED_EXTENSIONS")
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS

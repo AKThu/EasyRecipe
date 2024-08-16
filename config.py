@@ -1,12 +1,17 @@
+import os
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 from dotenv import load_dotenv
-from os import getenv
+
+
+UPLOAD_FOLDER = './static/images/'
 
 app = Flask(__name__)
-app.secret_key = getenv("SECRET_KEY")
+app.secret_key = os.getenv("SECRET_KEY")
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///demo.db"
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 class Base(DeclarativeBase):
     pass

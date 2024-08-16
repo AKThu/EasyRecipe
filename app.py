@@ -127,6 +127,7 @@ def recipe_detail(recipe_id):
 @app.route("/upload", methods=["GET", "POST"])
 def upload():
     if request.method == "POST":
+        print(request.files, request.form)
 
         # handle image upload
         if 'image' not in request.files:
@@ -137,9 +138,58 @@ def upload():
             flash('Image not selected')
             return redirect(request.url)
         
+        # handle recipe name
+        if request.form["name"] == "":
+            flash("Required recipe name")
+            return redirect(request.url)
+        
+        # handle cooking duration
+        if (request.form["hours"] == "") or (request.form["minutes"] == "") or (request.form["hours"] == "0" and request.form["minutes"] == "0"):
+            flash("Required cooking duration")
+            return redirect(request.url)
+        
+        # handle servings
+        if request.form["servings"] == "" or request.form["servings"] == "0":
+            flash("Required servings amount")
+            return redirect(request.url)
+        
+        # handle ingredients
+        if request.form["ingredients"] == "":
+            flash("Required a list of ingredients")
+            return redirect(request.url)
+
+        # handle cooking instruction steps
+        if request.form["step"] == "":
+            flash("Required instructions to cook")
+            return redirect(request.url)
+
+        # save image to the storage
+        save_location = ''
         if image and allowed_file(image.filename):
             filename = secure_filename(image.filename)
-            image.save(os.part.join(app.config[os.getenv('UPLOAD_FOLDER')], filename))
+            save_location = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+            image.save(save_location)
+        else:
+            flash("Invalid file extension. (.png, .jpg or .jpeg files are allowed)")
+            return redirect(request.url)
+        
+        print(save_location)
+
+        # create Recipe object
+        recipe = Recipe(
+            name = request.form.get("name"),
+            cook_time_in_minutes = (int(request.form["hours"]) * 60) + int(request.form["minutes"]),
+            servings = request.form.get("servings"),
+            ingredients = request.form["ingredients"].split("\r\n"),
+            instructions = request.form.getlist("step"),
+            image = save_location
+        )
+
+        db.session.add(recipe)
+        db.session.commit()
+
+        return redirect("/")
+
     else:
         return render_template("/upload.html")
 

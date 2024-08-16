@@ -14,49 +14,51 @@
 <body class="bg-base-300 text-base-content min-h-screen flex flex-col font-poppins transition duration-500 selection:bg-accent selection:text-accent-content">
   <header class="sticky w-full p-2 top-0 z-50">
     <!-- Navbar -->
-    <div class="navbar bg-base-100 drop-shadow-md rounded-lg h-fit">
-      <div class="flex-1">
-        <!-- Navbar Logo -->
-        <a href="/" class="btn btn-ghost text-xl">Taka Recipes</a>
-      </div>
-      <div class="flex-none">
-        {% if session["user_id"] %}
-          <!-- User Profile -->
-          <div class="dropdown dropdown-end">
-            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-              <div class="w-8 rounded-full">
-                <img alt="User profile"
-                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+    <div class="navbar h-fit drop-shadow-md rounded-lg bg-base-100">
+      <div class="w-screen max-w-[1440px] mx-auto">
+        <div class="flex-1">
+          <!-- Navbar Logo -->
+          <a href="/" class="btn btn-ghost text-xl">Taka Recipes</a>
+        </div>
+        <div class="flex-none">
+          {% if session["user_id"] %}
+            <!-- User Profile -->
+            <div class="dropdown dropdown-end">
+              <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+                <div class="w-8 rounded-full">
+                  <img alt="User profile"
+                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                </div>
               </div>
+              <!-- User dropdown -->
+              <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                <li>
+                  <a class="justify-between">
+                    Profile
+                    <span class="badge">New</span>
+                  </a>
+                </li>
+                <li><a>Settings</a></li>
+                <li><a href="/logout">Logout</a></li>
+              </ul>
             </div>
-            <!-- User dropdown -->
-            <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-              <li>
-                <a class="justify-between">
-                  Profile
-                  <span class="badge">New</span>
-                </a>
-              </li>
-              <li><a>Settings</a></li>
-              <li><a href="/logout">Logout</a></li>
-            </ul>
-          </div>
-        {% else %}
-          <!-- Register or Login -->
-          <!-- For large screens -->
-          <div class="hidden lg:block">
-            <a href="/register" class="btn btn-ghost text-base">Register</a>
-            <a href="/login" class="btn btn-ghost text-base">Login</a>
-          </div>
-          <!-- Menu Button For small screens -->
-          <div class="dropdown dropdown-end block lg:hidden">
-            <div tabindex="0" role="button" class="btn btn-accent text-accent-content m-1">Menu</div>
-            <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-              <li><a href="/register">Register</a></li>
-              <li><a href="/login">Login</a></li>
-            </ul>
-          </div>
-        {% endif %}
+          {% else %}
+            <!-- Register or Login -->
+            <!-- For large screens -->
+            <div class="hidden lg:block">
+              <a href="/register" class="btn btn-ghost text-base">Register</a>
+              <a href="/login" class="btn btn-ghost text-base">Login</a>
+            </div>
+            <!-- Menu Button For small screens -->
+            <div class="dropdown dropdown-end block lg:hidden">
+              <div tabindex="0" role="button" class="btn btn-accent text-accent-content m-1">Menu</div>
+              <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                <li><a href="/register">Register</a></li>
+                <li><a href="/login">Login</a></li>
+              </ul>
+            </div>
+          {% endif %}
+        </div>
       </div>
     </div>
   </header>
