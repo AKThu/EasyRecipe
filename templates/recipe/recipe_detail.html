@@ -1,14 +1,15 @@
 {% extends "template.html" %}
 
-{% block title %}Recipe name{% endblock %}
+{% block title %}{{ recipe.name }}{% endblock %}
 
 {% block main %}
-<div class="w-screen lg:w-[1024px] mx-auto p-5 mb-10">
+<div class="w-screen max-w-[2000px] mx-auto p-5 mb-10">
+    <p class="text-center text-3xl font-bold mb-5">{{ recipe.name }}</p>
     <div class="flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-5 w-full">
         <div class="w-full">
-            <img class="object-cover w-full sm:w-[400px] lg:w-[500px] h-72 lg:h-96 mx-auto rounded-lg drop-shadow-lg" src="{{ '../' + recipe.image }}" alt="pizza">
-            <div class="mt-10 drop-shadow-lg bg-base-100 rounded-lg">
-                <div class="h-2 bg-accent"></div>
+            <img class="object-cover w-full sm:w-[400px] lg:w-[500px] h-72 lg:h-96 mx-auto rounded-xl drop-shadow-lg" src="{{ '../' + recipe.image }}" alt="pizza">
+            <div class="mt-10 drop-shadow-lg bg-base-100 rounded-xl">
+                <div class="h-2 bg-accent rounded-t-xl"></div>
                 <div class="grid grid-rows-2 text-sm md:text-base">
                     <div class="p-3">
                         <span class="font-bold">Cook Time:</span>
@@ -29,8 +30,8 @@
             </div>
         </div>
 
-        <div class="drop-shadow-lg bg-base-100 rounded-lg w-full">
-            <div class="h-2 bg-accent"></div>
+        <div class="drop-shadow-lg bg-base-100 rounded-xl w-full">
+            <div class="h-2 bg-accent rounded-t-xl"></div>
             <div class="p-3">
                 <h3 class="text-2xl font-bold">Ingredients</h3>
                 <ul class="list-disc ml-5 mt-5 text-sm md:text-base">

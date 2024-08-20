@@ -1,12 +1,12 @@
 <h3 class="text-center text-2xl font-medium text-base-content">Newly Added Recipes</h3>
-<div class="py-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5 lg:gap-8 md:justify-center size-auto">
-    {% for index in range(6) %}
-    <a href="/" class="card card-compact bg-base-100 shadow-xl w-fit">
-        <figure>
-            <img src="https://pinchofyum.com/cdn-cgi/image/width=360,height=360,fit=crop/wp-content/uploads/Oat-Bran-Finished-scaled.jpg" alt="Shoes" />
-        </figure>
-        <div class="card-body">
-            <h2 class="card-title w-fit hover:underline hover:text-rose-500">Pizza</h2>
+<div class="py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8 md:justify-center size-auto">
+    {% for new_recipe in new_recipes %}
+    <a href="/recipe/{{new_recipe.id}}" class="bg-base-100 shadow-xl rounded-xl">
+        <div>
+            <img src="{{ '../' + new_recipe.image }}" class="rounded-t-xl aspect-square object-cover" alt="{{ new_recipe.name }}" />
+        </div>
+        <div class="p-5">
+            <h2 class="text-lg font-bold w-fit hover:underline hover:text-rose-500">{{ new_recipe.name }}</h2>
             <div>
                 rating - *****
             </div>

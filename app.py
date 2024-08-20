@@ -4,15 +4,19 @@ from flask import render_template, redirect, request, flash, session
 from config import app, db
 from model import User, Recipe
 from http import HTTPStatus
-from helpers import error, password_hash, check_password, allowed_file
+from helpers import error, password_hash, check_password, allowed_file, get_current_time, string_to_datetime
 from werkzeug.utils import secure_filename
+from sqlalchemy import desc
 
 
 @app.route("/")
 def home():
+    # newly added recipes
+    new_recipes = db.session.execute(db.select(Recipe).order_by(desc(Recipe.id))).scalars().fetchmany(4)
+
     # TODO
     users = db.session.execute(db.select(User).order_by(User.username)).scalars().fetchall()
-    return render_template("home.html", users=users)
+    return render_template("home.html", new_recipes=new_recipes, users=users)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -105,7 +109,9 @@ def logout():
 
 @app.route("/recipes")
 def recipes():
-    return render_template("/recipe/all_recipes.html")
+    recipes = db.session.execute(db.select(Recipe)).scalars()
+    print(recipes)
+    return render_template("/recipe/all_recipes.html", recipes=recipes)
 
 
 @app.route("/recipe/<recipe_id>")
@@ -127,8 +133,6 @@ def recipe_detail(recipe_id):
 @app.route("/upload", methods=["GET", "POST"])
 def upload():
     if request.method == "POST":
-        print(request.files, request.form)
-
         # handle image upload
         if 'image' not in request.files:
             flash('No image part')
@@ -172,8 +176,6 @@ def upload():
         else:
             flash("Invalid file extension. (.png, .jpg or .jpeg files are allowed)")
             return redirect(request.url)
-        
-        print(save_location)
 
         # create Recipe object
         recipe = Recipe(
@@ -182,7 +184,9 @@ def upload():
             servings = request.form.get("servings"),
             ingredients = request.form["ingredients"].split("\r\n"),
             instructions = request.form.getlist("step"),
-            image = save_location
+            image = save_location,
+            datetime = get_current_time(),
+            user_id = session["user_id"]
         )
 
         db.session.add(recipe)

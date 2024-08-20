@@ -9,7 +9,7 @@
             <ul class=flashes>
                 {% for category, message in messages %}
                     <div class="toast toast-start">
-                        <span class="alert alert-success">{{ message }}</span>
+                        <span class="alert alert-success text-white">{{ message }}</span>
                     </div>
                 {% endfor %}
             </ul>
@@ -20,7 +20,7 @@
         {% include "./home/hero_section.html" %}
     </div>
 
-    <div id="body" class="mx-3 lg:mx-5">
+    <div id="body" class="w-screen max-w-[2000px] mx-auto px-3 lg:px-5">
         <div id="newly-added-recipes" class="mt-10 lg:mt-20">
             {% include "./home/newly_added_recipes.html" %}
             <div class="text-center">

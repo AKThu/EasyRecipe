@@ -1,6 +1,9 @@
+import datetime
+
 from hashlib import sha256
 
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp'}
 
 def error(http_status, description):
     return {
@@ -19,3 +22,9 @@ def check_password(user, password):
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def get_current_time():
+    return datetime.datetime.now().strftime("%x %X")
+
+def string_to_datetime(datetime_string):
+    return datetime.datetime.strptime(datetime_string, "%x %X")

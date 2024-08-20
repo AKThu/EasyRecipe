@@ -1,0 +1,14 @@
+Database
+    recipe Table
+        Add Column
+            "date" for recipe
+    Create new Table
+        rating table
+            id -> primary key
+            recipe id -> foreign key (recipe table)
+            user id -> foreign key (user table)
+            rating
+        
+
+
+    
