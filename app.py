@@ -47,7 +47,7 @@ def register():
         user = User(
             username = username,
             email = email,
-            password = password_hash(password)
+            password = password_hash(password),
         )
         
         # register the user
@@ -58,6 +58,8 @@ def register():
         db.session.refresh(user)
         # set session data
         session["user_id"] = user.id
+        session["username"] = username
+        session["user_profile_image"] = "./static/images/anonymous.jpg"
 
         # redirect user to the home page
         flash("Registered successfully!", "success")
@@ -91,6 +93,8 @@ def login():
         
         # set session data
         session["user_id"] = user.id
+        session["username"] = user.username
+        session["user_profile_image"] = user.profile_image
 
         # redirect user to the home page
         flash("Login successful", "success")
@@ -109,6 +113,34 @@ def logout():
     return redirect("/")
 
 
+@app.route("/profile", methods=["GET", "POST"])
+@login_required
+def profile():
+    if request.method == "POST":
+        # Get old password and new password from post request
+        old_password = request.form.get("old_password").strip()
+        new_password = request.form.get("new_password").strip()
+
+        # Check if two password fields exists
+        if not old_password or not new_password:
+            return render_template("error.html", error=error(HTTPStatus.FORBIDDEN, "Please enter value in all input fields"))
+
+        # Get user from the database and check if the old password is correct
+        user = db.session.execute(db.select(User).filter_by(id=session["user_id"])).scalar_one_or_none()
+        if not check_password(user, old_password):
+            return render_template("error.html", error=error(HTTPStatus.UNAUTHORIZED, "Wrong Password"))
+        
+        # Update the password
+        user.password = password_hash(new_password)
+        db.session.commit()
+        
+        # Redirect user to profile page
+        return redirect(request.url)
+    else:
+        email = db.session.execute(db.select(User.email).filter_by(id=session["user_id"])).scalar_one_or_none()
+        return render_template("profile.html", email=email)
+
+
 @app.route("/recipes")
 @login_required
 def recipes():
@@ -121,15 +153,19 @@ def recipes():
 def recipe_detail(recipe_id):
     # Query recipe from database
     recipe = db.session.execute(db.select(Recipe).filter_by(id=recipe_id)).scalar_one_or_none()
+    
     # If recipe is not found
     if not recipe:
         return render_template("error.html", error=error(HTTPStatus.NOT_FOUND, "Not Found"))
+    
+    # Covert cooking time from minutes to hour and minutes
     if recipe.cook_time_in_minutes >= 60:
         recipe.cook_time_hour = recipe.cook_time_in_minutes // 60
         recipe.cook_time_minute = recipe.cook_time_in_minutes % 60
     else:
         recipe.cook_time_hour = None
         recipe.cook_time_minute = recipe.cook_time_in_minutes
+
     return render_template("/recipe/recipe_detail.html", recipe=recipe)
 
 

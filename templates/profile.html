@@ -1,0 +1,39 @@
+{% extends "template.html" %}
+
+{% block title %}{{session["username"]}}{% endblock %}
+
+{% block main %}
+<div class="w-full flex flex-row justify-center gap-32">
+    <form action="/profile" method="post">
+        <label class="form-control w-full max-w-5xl">
+            <div class="label">
+                <span class="label-text">Username</span>
+            </div>
+            <input type="text" name="username" class="input input-bordered w-full max-w-5xl" value="{{session['username']}}" disabled>
+        </label>
+        <label class="form-control w-full max-w-5xl">
+            <div class="label">
+                <span class="label-text">Email</span>
+            </div>
+            <input type="email" name="email" class="input input-bordered w-full max-w-5xl" value="{{email}}" disabled>
+        </label>
+        <label class="form-control w-full max-w-5xl">
+            <div class="label">
+                <span class="label-text">Old Password</span>
+            </div>
+            <input type="password" name="old_password" class="input input-bordered w-full max-w-5xl">
+        </label>
+        <label class="form-control w-full max-w-5xl">
+            <div class="label">
+                <span class="label-text">New Password</span>
+            </div>
+            <input type="password" name="new_password" class="input input-bordered w-full max-w-5xl">
+        </label>
+        <br>
+        <button type="submit" class="btn btn-accent text-slate-100">Submit</button>
+    </form>
+    <div class="size-full md:size-60">
+        <img src="{{session['user_profile_image']}}" alt="user profile image">
+    </div>
+</div>
+{% endblock %}

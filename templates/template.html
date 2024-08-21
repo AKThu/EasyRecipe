@@ -27,16 +27,12 @@
               <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                 <div class="w-8 rounded-full">
                   <img alt="User profile"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                    src="{{ session['user_profile_image'] }}" />
                 </div>
               </div>
               <!-- User dropdown -->
               <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                <li>
-                  <a class="justify-between">
-                    Profile
-                  </a>
-                </li>
+                <li><a href="/profile">Profile</a></li>
                 <li><a href="/upload">Add a recipe</a></li>
                 <li><a href="/logout">Logout</a></li>
               </ul>
