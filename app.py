@@ -4,12 +4,13 @@ from flask import render_template, redirect, request, flash, session
 from config import app, db
 from model import User, Recipe
 from http import HTTPStatus
-from helpers import error, password_hash, check_password, allowed_file, get_current_time, string_to_datetime
+from helpers import error, password_hash, check_password, allowed_file, get_current_time, string_to_datetime, login_required
 from werkzeug.utils import secure_filename
 from sqlalchemy import desc
 
 
 @app.route("/")
+@login_required
 def home():
     # newly added recipes
     new_recipes = db.session.execute(db.select(Recipe).order_by(desc(Recipe.id))).scalars().fetchmany(4)
@@ -101,6 +102,7 @@ def login():
 
 
 @app.route("/logout")
+@login_required
 def logout():
     session.clear()
     flash("Logged out", "success")
@@ -108,6 +110,7 @@ def logout():
 
 
 @app.route("/recipes")
+@login_required
 def recipes():
     recipes = db.session.execute(db.select(Recipe)).scalars()
     print(recipes)
@@ -115,6 +118,7 @@ def recipes():
 
 
 @app.route("/recipe/<recipe_id>")
+@login_required
 def recipe_detail(recipe_id):
     # Query recipe from database
     recipe = db.session.execute(db.select(Recipe).filter_by(id=recipe_id)).scalar_one_or_none()
@@ -131,6 +135,7 @@ def recipe_detail(recipe_id):
 
 
 @app.route("/upload", methods=["GET", "POST"])
+@login_required
 def upload():
     if request.method == "POST":
         # handle image upload

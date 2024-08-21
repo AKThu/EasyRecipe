@@ -1,6 +1,8 @@
 import datetime
 
 from hashlib import sha256
+from functools import wraps
+from flask import session, redirect
 
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp'}
@@ -28,3 +30,13 @@ def get_current_time():
 
 def string_to_datetime(datetime_string):
     return datetime.datetime.strptime(datetime_string, "%x %X")
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get("user_id") is None:
+            return redirect("/login")
+        return f(*args, **kwargs)
+    
+    return decorated_function
+

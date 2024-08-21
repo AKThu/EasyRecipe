@@ -1,7 +1,4 @@
 Database
-    recipe Table
-        Add Column
-            "date" for recipe
     Create new Table
         rating table
             id -> primary key
