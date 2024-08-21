@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+</head>
+
+<body>
+    <ul>
+        {% for recipe in page %}
+        <li>{{ recipe.id }}. {{ recipe.name }}</li>
+        {% endfor %}
+    </ul>
+    <p>showing {{ page.first }} - {{ page.last }} of {{ page.total }}</p>
+    <div>
+    {% for page_number in page.iter_pages() %}
+        {% if page_number %}
+            <a href="/test?page={{ page_number }}" class="p-2">{{ page_number }}</a>
+        {% else %}
+            <span>...</span>
+        {% endif %}
+    {% endfor %}
+    </div>
+</body>
+
+</html>

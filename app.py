@@ -112,8 +112,7 @@ def logout():
 @app.route("/recipes")
 @login_required
 def recipes():
-    recipes = db.session.execute(db.select(Recipe)).scalars()
-    print(recipes)
+    recipes = db.paginate(db.select(Recipe).order_by(Recipe.id), page=int(request.args.get("page", "1")))
     return render_template("/recipe/all_recipes.html", recipes=recipes)
 
 
@@ -201,6 +200,12 @@ def upload():
 
     else:
         return render_template("/upload.html")
+    
+
+@app.route("/test")
+def test():
+    page = db.paginate(db.select(Recipe).order_by(Recipe.id), page=int(request.args.get("page", "1")))
+    return render_template("test.html", page=page)
 
 
 if __name__ == "__main__":

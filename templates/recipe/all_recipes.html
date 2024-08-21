@@ -18,16 +18,20 @@
             </div>
         </a>
         {% endfor %}
-        
     </div>
-    <div class="join my-10 w-fit mx-auto">
-        <button class="join-item btn">«</button>
-        <button class="join-item btn">1</button>
-        <button class="join-item btn btn-active bg-accent text-accent-content">2</button>
-        <button class="join-item btn">3</button>
-        <button class="join-item btn btn-disabled">...</button>
-        <button class="join-item btn">100</button>
-        <button class="join-item btn">»</button>
+    <div class="my-5 text-sm">Showing {{ recipes.first }} - {{ recipes.last }} of {{ recipes.total }}</div>
+    <div class="join w-fit mx-auto mb-10 drop-shadow-md">
+        {% for page in recipes.iter_pages() %}
+            {% if page %} 
+                {% if page == recipes.page %}
+                    <a class="join-item btn btn-sm btn-active bg-accent text-accent-content hover:bg-rose-700">{{ page }}</a>
+                {% else %}
+                    <a href="/recipes?page={{page}}" class="join-item btn btn-sm">{{ page }}</a>
+                {% endif %}
+            {% else %}
+                <a class="join-item btn btn-sm btn-disabled">...</a>
+            {% endif %}
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
