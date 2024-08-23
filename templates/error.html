@@ -1,10 +1,10 @@
 {% extends "template.html" %}
 
-{% block title %}{{ error["phrase"] }}{% endblock %}
+{% block title %}{{ error.phrase }}{% endblock %}
 
 {% block main %}
-<div class="w-fit mx-auto text-slate-400">
+<div class="w-fit mx-auto text-slate-400 select-none">
     <div class="text-9xl text-center">{{ error.status_code }}</div>
-    <div class="text-4xl text-center">{{ error.description }}</div>
+    <div class="text-4xl text-center">{{ error.phrase }}</div>
 </div>
 {% endblock %}

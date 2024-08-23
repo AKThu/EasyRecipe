@@ -59,7 +59,7 @@ def register():
         # set session data
         session["user_id"] = user.id
         session["username"] = username
-        session["user_profile_image"] = "./static/images/anonymous.jpg"
+        session["user_profile_image"] = "images/anonymous.jpg"
 
         # redirect user to the home page
         flash("Registered successfully!", "success")
@@ -80,16 +80,19 @@ def login():
 
         # check if input fields contain values
         if not email or not password:
-            return render_template("error.html", error=error(HTTPStatus.FORBIDDEN, "Please enter value in all input fields"))
+            flash("Input fields required.", "error")
+            return redirect(request.url)
         
         # check if user exists
         user = db.session.execute(db.select(User).filter_by(email=email)).scalar_one_or_none()
         if not user:
-            return render_template("error.html", error=error(HTTPStatus.NOT_FOUND, "User does not exists!"))
+            flash("User does not exists.", "error")
+            return redirect(request.url)
         
         # check password
         if not check_password(user, password):
-            return render_template("error.html", error=error(HTTPStatus.UNAUTHORIZED, "Wrong Password"))
+            flash("Wrong password", "error")
+            return redirect(request.url)
         
         # set session data
         session["user_id"] = user.id
@@ -123,18 +126,21 @@ def profile():
 
         # Check if two password fields exists
         if not old_password or not new_password:
-            return render_template("error.html", error=error(HTTPStatus.FORBIDDEN, "Please enter value in all input fields"))
+            flash("Missing input!", "error")
+            return redirect(request.url)
 
         # Get user from the database and check if the old password is correct
         user = db.session.execute(db.select(User).filter_by(id=session["user_id"])).scalar_one_or_none()
         if not check_password(user, old_password):
-            return render_template("error.html", error=error(HTTPStatus.UNAUTHORIZED, "Wrong Password"))
+            flash("Wrong password", "error")
+            return redirect(request.url)
         
         # Update the password
         user.password = password_hash(new_password)
         db.session.commit()
         
         # Redirect user to profile page
+        flash("Profile updated!", "success")
         return redirect(request.url)
     else:
         email = db.session.execute(db.select(User.email).filter_by(id=session["user_id"])).scalar_one_or_none()
@@ -156,7 +162,7 @@ def recipe_detail(recipe_id):
     
     # If recipe is not found
     if not recipe:
-        return render_template("error.html", error=error(HTTPStatus.NOT_FOUND, "Not Found"))
+        return render_template("error.html", error=error(HTTPStatus.NOT_FOUND))
     
     # Covert cooking time from minutes to hour and minutes
     if recipe.cook_time_in_minutes >= 60:
@@ -238,10 +244,19 @@ def upload():
         return render_template("/upload.html")
     
 
-@app.route("/test")
+# ERROR HANDLING
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('error.html', error=error(HTTPStatus.NOT_FOUND))
+    
+
+# TEST ROUTE
+@app.route("/test", methods=["GET", "POST"])
 def test():
-    page = db.paginate(db.select(Recipe).order_by(Recipe.id), page=int(request.args.get("page", "1")))
-    return render_template("test.html", page=page)
+    if request.method == "POST":
+        return render_template("test.html", data=request.files["image"].filename)
+    else:
+        return render_template("test.html")
 
 
 if __name__ == "__main__":

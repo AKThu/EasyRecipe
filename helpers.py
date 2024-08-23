@@ -7,11 +7,10 @@ from flask import session, redirect
 
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'webp'}
 
-def error(http_status, description):
+def error(http_status):
     return {
         "status_code": http_status.value,
-        "phrase": http_status,
-        "description": description
+        "phrase": http_status.phrase,
     }
 
 def password_hash(password):

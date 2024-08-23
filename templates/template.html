@@ -27,7 +27,7 @@
               <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                 <div class="w-8 rounded-full">
                   <img alt="User profile"
-                    src="{{ session['user_profile_image'] }}" />
+                    src="{{ url_for('static', filename=session['user_profile_image']) }}" />
                 </div>
               </div>
               <!-- User dropdown -->
@@ -59,6 +59,17 @@
   </header>
 
   <main class="grow flex flex-col items-center justify-center font-poppins">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul>
+                {% for category, message in messages %}
+                    <div class="toast toast-center">
+                        <span class="alert {{ 'alert-success' if category == 'success' else 'alert-error'}} text-white">{{ message }}</span>
+                    </div>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
     {% block main %}{% endblock %}
   </main>
 
@@ -70,6 +81,12 @@
 
   <script>
     document.querySelector('#date').textContent = new Date().getFullYear();
+
+    Array.from(document.querySelectorAll('.toast')).map((toast) => {
+      toast.addEventListener('click', (e) => {
+        e.target.remove();
+      });
+    });
   </script>
 </body>
 

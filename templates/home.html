@@ -4,18 +4,6 @@
 
 {% block main %}
 <div class="w-full grow">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul class=flashes>
-                {% for category, message in messages %}
-                    <div class="toast toast-start">
-                        <span class="alert alert-success text-white">{{ message }}</span>
-                    </div>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-
     <div id="hero-section">
         {% include "./home/hero_section.html" %}
     </div>

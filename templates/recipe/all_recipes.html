@@ -8,7 +8,7 @@
         {% for recipe in recipes %}
         <a href="/recipe/{{recipe.id}}" class="bg-base-100 shadow-xl rounded-xl">
             <div>
-                <img src="{{ '../' + recipe.image }}" class="rounded-t-xl aspect-square object-cover" alt="recipe" />
+                <img src="{{ url_for('static', filename=recipe.image) }}" class="rounded-t-xl aspect-square object-cover" alt="recipe" />
             </div>
             <div class="p-5">
                 <h2 class="text-lg font-bold w-fit hover:underline hover:text-rose-500">{{recipe.name}}</h2>
