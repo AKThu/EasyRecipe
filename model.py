@@ -10,7 +10,7 @@ class User(db.Model):
     username = mapped_column(String(50), unique=True, nullable=False)
     email = mapped_column(String(150), unique=True, nullable=False)
     password = mapped_column(String(300), nullable=False)
-    profile_image = mapped_column(String(255), nullable=False, default="./static/images/anonymous.jpg")
+    profile_image = mapped_column(String(255), nullable=False, default="images/anonymous.jpg")
 
 class Recipe(db.Model):
     __tablename__ = "recipe"

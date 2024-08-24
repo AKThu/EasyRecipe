@@ -63,7 +63,7 @@
         {% if messages %}
             <ul>
                 {% for category, message in messages %}
-                    <div class="toast toast-center">
+                    <div class="toast toast-center cursor-pointer">
                         <span class="alert {{ 'alert-success' if category == 'success' else 'alert-error'}} text-white">{{ message }}</span>
                     </div>
                 {% endfor %}
@@ -79,15 +79,8 @@
     </div>
   </footer>
 
-  <script>
-    document.querySelector('#date').textContent = new Date().getFullYear();
-
-    Array.from(document.querySelectorAll('.toast')).map((toast) => {
-      toast.addEventListener('click', (e) => {
-        e.target.remove();
-      });
-    });
-  </script>
+  <script src="{{ url_for('static', filename='js/functions.js') }}"></script>
+  {% block javascript %}{% endblock %}
 </body>
 
 </html>

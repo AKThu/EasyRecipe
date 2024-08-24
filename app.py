@@ -1,10 +1,10 @@
 import os
 
 from flask import render_template, redirect, request, flash, session
-from config import app, db
+from config import app, db, DEFAULT_USER_PROFILE
 from model import User, Recipe
 from http import HTTPStatus
-from helpers import error, password_hash, check_password, allowed_file, get_current_time, string_to_datetime, login_required
+from helpers import error, password_hash, check_password, allowed_file, get_current_time, string_to_datetime, login_required, generate_profile_name
 from werkzeug.utils import secure_filename
 from sqlalchemy import desc
 
@@ -59,7 +59,7 @@ def register():
         # set session data
         session["user_id"] = user.id
         session["username"] = username
-        session["user_profile_image"] = "images/anonymous.jpg"
+        session["user_profile_image"] = DEFAULT_USER_PROFILE
 
         # redirect user to the home page
         flash("Registered successfully!", "success")
@@ -147,6 +147,44 @@ def profile():
         return render_template("profile.html", email=email)
 
 
+@app.route("/change_profile_image", methods=["POST"])
+@login_required
+def change_profile_image():
+    # Validate if profile_image part is included in the request header
+    if 'profile_image' not in request.files:
+        flash('No image part')
+        return redirect(request.url)
+    profile_image = request.files['profile_image']
+    if profile_image == '':
+        flash('Image not selected')
+        return redirect(request.url)
+    
+    # Save image to the file system
+    save_location = ''
+    if profile_image and allowed_file(profile_image.filename):
+        filename = generate_profile_name(profile_image.filename)
+        save_location = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+        profile_image.save(save_location)
+    else:
+        flash("Invalid file extension. (only '.png', '.jpg' or '.jpeg' files are allowed)", "error")
+    
+    # Get user from the database table
+    user = db.session.execute(db.select(User).filter_by(id=session["user_id"])).scalar_one_or_none()
+    # Delete old profile image
+    if not user.profile_image == DEFAULT_USER_PROFILE:
+        os.remove('./static/'+user.profile_image)
+    # Update profile image
+    user.profile_image = save_location.split('/', 2)[2]
+    db.session.commit()
+
+    # change profile image in the session data
+    session['user_profile_image'] = user.profile_image
+
+    # Redirect user to profile page
+    flash("Profile updated successfully", "success")
+    return redirect("/profile")
+
+
 @app.route("/recipes")
 @login_required
 def recipes():
@@ -220,7 +258,7 @@ def upload():
             save_location = os.path.join(app.config["UPLOAD_FOLDER"], filename)
             image.save(save_location)
         else:
-            flash("Invalid file extension. (.png, .jpg or .jpeg files are allowed)")
+            flash("Invalid file extension. (only '.png', '.jpg' or '.jpeg' files are allowed)", "error")
             return redirect(request.url)
 
         # create Recipe object
@@ -230,7 +268,7 @@ def upload():
             servings = request.form.get("servings"),
             ingredients = request.form["ingredients"].split("\r\n"),
             instructions = request.form.getlist("step"),
-            image = save_location,
+            image = save_location.split('/', 2)[2],
             datetime = get_current_time(),
             user_id = session["user_id"]
         )
@@ -238,6 +276,7 @@ def upload():
         db.session.add(recipe)
         db.session.commit()
 
+        flash("New recipe added.", "success")
         return redirect("/")
 
     else:

@@ -39,3 +39,6 @@ def login_required(f):
     
     return decorated_function
 
+def generate_profile_name(filename):
+    [name, extension] = filename.rsplit(".", 1)
+    return "{name}_{date_time}.{extension}".format(name=name, date_time=datetime.datetime.now().strftime("%d_%m_%y_%H_%M_%S_%f"), extension=extension)

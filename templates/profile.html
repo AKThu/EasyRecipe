@@ -34,6 +34,35 @@
     </div>
     <div class="size-full md:size-60">
         <img src="{{ url_for('static', filename=session['user_profile_image']) }}" alt="user profile image">
+        <button id="change_profile_image_button" class="btn w-full" onclick="profile_modal.showModal()">Change profile image</button>
     </div>
 </div>
+<dialog id="profile_modal" class="modal">
+    <div class="modal-box">
+        <form method="dialog">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+        </form>
+        <h3 class="text-lg font-bold">Change profile image</h3>
+        <form action="/change_profile_image" method="post" enctype="multipart/form-data" class="py-3 flex flex-col items-center">
+            <img id="profile" src="{{ url_for('static', filename=session['user_profile_image']) }}" alt="user profile image" class="size-full md:size-60 mx-auto">
+            <input id="upload_profile" type="file" accept="image/*" class="hidden" name="profile_image">
+            <input id="upload_button" type="button" value="Upload image" class="btn mx-auto mt-3">
+            <button type="submit" class="btn btn-accent w-full mt-10">Submit</button>
+        </form>
+    </div>
+</dialog>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    let profile = document.querySelector('#profile');
+    document.querySelector("#upload_profile").addEventListener('change', (e) => {
+        profile.src = URL.createObjectURL(e.target.files[0])
+    });
+    document.querySelector('#upload_button').addEventListener('click', (e) => {
+        document.querySelector('#upload_profile').click()
+    });
+
+
+</script>
 {% endblock %}
