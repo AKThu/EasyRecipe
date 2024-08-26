@@ -26,6 +26,24 @@
                         <span class="font-bold">Servings:</span>
                         <span class="hover:text-rose-500 ml-3">{{ recipe.servings }}</span>
                     </div>
+                    <div class="p-3">
+                        <span class="font-bold">Total rating: </span>
+                        <span class="hover:text-rose-500 ml-3">{{avg_rating}}</span>
+                        <span class="rating rating-sm rating-half">
+                            <input type="radio" name="rating" disabled class="rating-hidden cursor-default" value="0" {{ "checked" if avg_rating >= 0 }} />
+                            <input type="radio" name="rating" disabled class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="0.5" {{ "checked" if avg_rating >= 0.5 }} />
+                            <input type="radio" name="rating" disabled class="mask mask-star-2 mask-half-2 bg-orange-400 cursor-default" value="1" {{ "checked" if avg_rating >= 1 }} />
+                            <input type="radio" name="rating" disabled class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="1.5" {{ "checked" if avg_rating >= 1.5 }} />
+                            <input type="radio" name="rating" disabled class="mask mask-star-2 mask-half-2 bg-orange-400 cursor-default" value="2" {{ "checked" if avg_rating >= 2 }} />
+                            <input type="radio" name="rating" disabled class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="2.5" {{ "checked" if avg_rating >= 2.5 }} />
+                            <input type="radio" name="rating" disabled class="mask mask-star-2 mask-half-2 bg-orange-400 cursor-default" value="3" {{ "checked" if avg_rating >= 3 }} />
+                            <input type="radio" name="rating" disabled class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="3.5" {{ "checked" if avg_rating >= 3.5 }} />
+                            <input type="radio" name="rating" disabled class="mask mask-star-2 mask-half-2 bg-orange-400 cursor-default" value="4" {{ "checked" if avg_rating >= 4 }} />
+                            <input type="radio" name="rating" disabled class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="4.5" {{ "checked" if avg_rating >= 4.5 }} />
+                            <input type="radio" name="rating" disabled class="mask mask-star-2 mask-half-2 bg-orange-400 cursor-default" value="5" {{ "checked" if avg_rating == 5 }} />
+                        </span>
+                        <span class="ml-3 text-sm">({{ratings_count}} {{ "rating" if ratings_count <= 1 else "ratings"}})</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -41,6 +59,20 @@
                 </ul>
             </div>
         </div>
+    </div>
+    <div class="mt-10 flex flex-col items-center py-5">
+        <h2 class="font-bold text-2xl mb-5 text-center">{{ "Your rating on this recipe" if current_user_rating else "Give this recipe a rating"}}</h2>
+        <form action="/recipe/{{recipe.id}}/rate" method="post" class="flex flex-col items-center">
+            <div class="rating rating-lg">
+                <input type="radio" name="rating" class="rating-hidden cursor-default" value="0" {{ "checked" if not current_user_rating }} />
+                <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400 cursor-default" value="1" {{ "checked" if current_user_rating >= 1 }} />
+                <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400 cursor-default" value="2" {{ "checked" if current_user_rating >= 2 }} />
+                <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400 cursor-default" value="3" {{ "checked" if current_user_rating >= 3 }} />
+                <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400 cursor-default" value="4" {{ "checked" if current_user_rating >= 4 }} />
+                <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400 cursor-default" value="5" {{ "checked" if current_user_rating == 5 }} />
+            </div>
+            <button type="submit" class="btn btn-accent mt-5">{{ "re-rate" if current_user_rating else "rate"}}</button>
+        </form>
     </div>
     <div id="instructions" class="mt-10">
         <h2 class="font-bold text-2xl mb-5">Instructions</h2>

@@ -42,3 +42,9 @@ def login_required(f):
 def generate_profile_name(filename):
     [name, extension] = filename.rsplit(".", 1)
     return "{name}_{date_time}.{extension}".format(name=name, date_time=datetime.datetime.now().strftime("%d_%m_%y_%H_%M_%S_%f"), extension=extension)
+
+def get_avg_rating(ratings):
+    total_rating = 0
+    for rating in ratings:
+        total_rating += rating.rating
+    return round(total_rating / len(ratings), ndigits=1) if len(ratings) != 0 else 0

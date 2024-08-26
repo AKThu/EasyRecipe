@@ -2,9 +2,9 @@ import os
 
 from flask import render_template, redirect, request, flash, session
 from config import app, db, DEFAULT_USER_PROFILE
-from model import User, Recipe
+from model import User, Recipe, Rating
 from http import HTTPStatus
-from helpers import error, password_hash, check_password, allowed_file, get_current_time, string_to_datetime, login_required, generate_profile_name
+from helpers import error, password_hash, check_password, allowed_file, get_current_time, string_to_datetime, login_required, generate_profile_name, get_avg_rating
 from werkzeug.utils import secure_filename
 from sqlalchemy import desc
 
@@ -210,7 +210,14 @@ def recipe_detail(recipe_id):
         recipe.cook_time_hour = None
         recipe.cook_time_minute = recipe.cook_time_in_minutes
 
-    return render_template("/recipe/recipe_detail.html", recipe=recipe)
+    # Get all rows of rating table which has current recipe's recipe_id
+    ratings = db.session.execute(db.select(Rating).filter_by(recipe_id=recipe_id)).scalars().all()
+
+    # Get the rating of current user
+    current_user_rating = list(filter(lambda rating: rating.user_id == session["user_id"], ratings))
+    current_user_rating = current_user_rating[0].rating if current_user_rating else 0
+        
+    return render_template("/recipe/recipe_detail.html", recipe=recipe, avg_rating=get_avg_rating(ratings), ratings_count=len(ratings), current_user_rating=current_user_rating)
 
 
 @app.route("/upload", methods=["GET", "POST"])
@@ -283,6 +290,30 @@ def upload():
         return render_template("/upload.html")
     
 
+@app.route("/recipe/<int:recipe_id>/rate", methods=["POST"])
+@login_required
+def rate_recipe(recipe_id):
+    # add rating to database if not already exists otherwise update the already existing row
+    rating = db.session.execute(db.select(Rating).filter_by(user_id=session["user_id"], recipe_id=recipe_id)).scalar_one_or_none()
+
+    # if user already rated before the recipe
+    if rating:
+        rating.rating = request.form.get("rating")
+    # if user has never been rated the recipe
+    else:
+        rating = Rating(
+            recipe_id = recipe_id,
+            user_id = session["user_id"],
+            rating = request.form.get("rating")
+        )
+        db.session.add(rating)
+
+    # Save changes to the database
+    db.session.commit()
+    
+    flash("thank you for rating", "success")
+    return redirect("/recipe/{recipe_id}".format(recipe_id=recipe_id))
+
 # ERROR HANDLING
 @app.errorhandler(404)
 def page_not_found(e):
@@ -293,7 +324,8 @@ def page_not_found(e):
 @app.route("/test", methods=["GET", "POST"])
 def test():
     if request.method == "POST":
-        return render_template("test.html", data=request.files["image"].filename)
+        print(request.form.get("rating"))
+        return render_template("test.html", data=request.form.get("rating"))
     else:
         return render_template("test.html")
 

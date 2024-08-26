@@ -59,9 +59,10 @@
   </header>
 
   <main class="grow flex flex-col items-center justify-center font-poppins">
+    <!-- Toast notification -->
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            <ul>
+            <ul class="z-50">
                 {% for category, message in messages %}
                     <div class="toast toast-center cursor-pointer">
                         <span class="alert {{ 'alert-success' if category == 'success' else 'alert-error'}} text-white">{{ message }}</span>
@@ -70,6 +71,7 @@
             </ul>
         {% endif %}
     {% endwith %}
+    <!-- main contents -->
     {% block main %}{% endblock %}
   </main>
 

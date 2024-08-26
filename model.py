@@ -24,3 +24,11 @@ class Recipe(db.Model):
     image = mapped_column(String(255), nullable=False)
     datetime = mapped_column(String(100), nullable=False)
     user_id = mapped_column(Integer, ForeignKey("user.id"))
+
+class Rating(db.Model):
+    __tablename__ = "rating"
+
+    id = mapped_column(Integer, primary_key=True)
+    recipe_id = mapped_column(Integer, ForeignKey("recipe.id"))
+    user_id = mapped_column(Integer, ForeignKey("user.id"))
+    rating = mapped_column(Integer, nullable=False)

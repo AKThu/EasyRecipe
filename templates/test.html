@@ -1,23 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "template.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test</title>
-</head>
+{% block title %}test{% endblock %}
 
-<body>
-    <button class="btn" onclick="my_modal_3.showModal()">open modal</button>
-    <dialog id="my_modal_3" class="modal">
-        <div class="modal-box">
-            <form method="dialog">
-                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-            </form>
-            <h3 class="text-lg font-bold">Hello!</h3>
-            <p class="py-4">Press ESC key or click on ✕ button to close</p>
-        </div>
-    </dialog>
-</body>
+{% block main %}
+<div>{{data}}</div>
+<form action="/test" method="post">
+    <div class="rating">
+        <input type="radio" name="rating" class="rating-hidden" checked="checked"/>
+        <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="1" />
+        <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="2" />
+        <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="3" />
+        <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="4" />
+        <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400" value="5" />
+    </div>
+    <button type="submit">submit</button>
+</form>
+<div class="rating rating-sm rating-half">
+    <input type="radio" name="rating" class="rating-hidden cursor-default" value="0" disabled />
+    <input type="radio" name="rating" class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="0.5" disabled />
+    <input type="radio" name="rating" class="mask mask-star-2 mask-half-2 bg-orange-400 cursor-default" value="1" disabled />
+    <input type="radio" name="rating" class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="1.5" disabled />
+    <input type="radio" name="rating" class="mask mask-star-2 mask-half-2 bg-orange-400 cursor-default" value="2" disabled />
+    <input type="radio" name="rating" class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="2.5" disabled checked="checked"/>
+    <input type="radio" name="rating" class="mask mask-star-2 mask-half-2 bg-orange-400 cursor-default" value="3" disabled />
+    <input type="radio" name="rating" class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="3.5" disabled />
+    <input type="radio" name="rating" class="mask mask-star-2 mask-half-2 bg-orange-400 cursor-default" value="4" disabled />
+    <input type="radio" name="rating" class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="4.5" disabled />
+    <input type="radio" name="rating" class="mask mask-star-2 mask-half-2 bg-orange-400 cursor-default" value="5" disabled />
+</div>
+{% endblock %}
 
-</html>
