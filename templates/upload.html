@@ -12,7 +12,10 @@
                     <div class="label">
                         <span class="label-text">Cover Image (.png, .jpg, .jpeg)</span>
                     </div>
-                    <input name="image" type="file" autocomplete="off" class="file-input file-input-bordered w-full max-w-xs" />
+                    <!-- <input name="image" type="file" autocomplete="off" class="file-input file-input-bordered w-full max-w-xs" /> -->
+                    <img id="recipe_image" src="{{ url_for('static', filename='/images/image_upload.jpg') }}" alt="recipe image" class="cursor-pointer object-cover w-full h-48 mx-auto rounded-xl drop-shadow-lg">
+                    <input type="file" name="image" accept="image/*" id="upload_image" class="hidden">
+                    <!-- <input type="button" value="Upload recipe image" id="upload_button" class="btn"> -->
                 </label>
 
                 <!-- recipe name -->
@@ -78,7 +81,9 @@
         <button type="submit" class="btn btn-accent">Upload</button>
     </form>
 
-    {% block javascript %}
+{% endblock %}
+
+{% block javascript %}
         <script>
 
             document.addEventListener('DOMContentLoaded', () => {
@@ -155,8 +160,11 @@
 
             });
 
+            // Image upload preview handler
+            let profile = document.querySelector('#recipe_image');
+            document.querySelector("#upload_image").addEventListener('change', (e) => {
+                profile.src = URL.createObjectURL(e.target.files[0])
+            });
         
         </script>
     {% endblock %}
-
-{% endblock %}

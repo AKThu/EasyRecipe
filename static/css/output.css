@@ -3153,10 +3153,6 @@ details.collapse summary::-webkit-details-marker{
   margin-top: 1.25rem;
 }
 
-.mb-3{
-  margin-bottom: 0.75rem;
-}
-
 .block{
   display: block;
 }
@@ -3213,6 +3209,10 @@ details.collapse summary::-webkit-details-marker{
   height: 100%;
 }
 
+.h-48{
+  height: 12rem;
+}
+
 .min-h-screen{
   min-height: 100vh;
 }
@@ -3266,16 +3266,12 @@ details.collapse summary::-webkit-details-marker{
   flex-grow: 1;
 }
 
-.cursor-pointer{
-  cursor: pointer;
-}
-
 .cursor-default{
   cursor: default;
 }
 
-.cursor-text{
-  cursor: text;
+.cursor-pointer{
+  cursor: pointer;
 }
 
 .select-none{
@@ -3359,6 +3355,19 @@ details.collapse summary::-webkit-details-marker{
 .rounded-t-xl{
   border-top-left-radius: 0.75rem;
   border-top-right-radius: 0.75rem;
+}
+
+.border{
+  border-width: 1px;
+}
+
+.border-2{
+  border-width: 2px;
+}
+
+.border-black{
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
 .bg-accent{
@@ -3486,11 +3495,6 @@ details.collapse summary::-webkit-details-marker{
 .text-xl{
   font-size: 1.25rem;
   line-height: 1.75rem;
-}
-
-.text-xs{
-  font-size: 0.75rem;
-  line-height: 1rem;
 }
 
 .font-bold{
@@ -3680,8 +3684,8 @@ details.collapse summary::-webkit-details-marker{
   color: var(--fallback-ac,oklch(var(--ac)/var(--tw-text-opacity)));
 }
 
-.hover\:cursor-text:hover{
-  cursor: text;
+.hover\:cursor-pointer:hover{
+  cursor: pointer;
 }
 
 .hover\:bg-accent:hover{
