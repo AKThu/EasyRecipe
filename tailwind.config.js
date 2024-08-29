@@ -5,6 +5,9 @@ module.exports = {
     extend: {
       fontFamily: {
         'poppins': ['Poppins', 'sans-serif'],
+      },
+      backgroundImage: {
+        'food-texture': "url('/static/images/project/seamless.png')",
       }
     },
   },

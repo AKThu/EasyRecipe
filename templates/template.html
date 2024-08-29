@@ -11,15 +11,20 @@
   <title>{% block title %}{% endblock %}</title>
 </head>
 
-<body class="bg-base-300 text-base-content min-h-screen flex flex-col font-poppins transition duration-500 selection:bg-accent selection:text-accent-content">
+<body class="bg-base-300 bg-food-texture bg-repeat text-base-content min-h-screen flex flex-col font-poppins transition duration-500 selection:bg-accent selection:text-accent-content">
   <header class="sticky w-full p-2 top-0 z-50">
     <!-- Navbar -->
     <div class="navbar h-fit drop-shadow-md rounded-lg bg-base-100">
       <div class="w-screen max-w-[2000px] mx-auto">
-        <div class="flex-1">
-          <!-- Navbar Logo -->
+        <!-- Navbar Logo -->
+        <div class="flex-1 w-fit">
           <a href="/" class="btn btn-ghost text-xl">Taka Recipes</a>
         </div>
+        <!-- Search input -->
+        <div class="mr-10">
+          Search
+        </div>
+        <!-- User Profile -->
         <div class="flex-none">
           {% if session["user_id"] %}
             <!-- User Profile -->

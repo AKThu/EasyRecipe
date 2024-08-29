@@ -3141,6 +3141,10 @@ details.collapse summary::-webkit-details-marker{
   margin-left: 1.25rem;
 }
 
+.mr-10{
+  margin-right: 2.5rem;
+}
+
 .mt-10{
   margin-top: 2.5rem;
 }
@@ -3196,6 +3200,10 @@ details.collapse summary::-webkit-details-marker{
   height: 0.5rem;
 }
 
+.h-48{
+  height: 12rem;
+}
+
 .h-72{
   height: 18rem;
 }
@@ -3207,10 +3215,6 @@ details.collapse summary::-webkit-details-marker{
 
 .h-full{
   height: 100%;
-}
-
-.h-48{
-  height: 12rem;
 }
 
 .min-h-screen{
@@ -3357,19 +3361,6 @@ details.collapse summary::-webkit-details-marker{
   border-top-right-radius: 0.75rem;
 }
 
-.border{
-  border-width: 1px;
-}
-
-.border-2{
-  border-width: 2px;
-}
-
-.border-black{
-  --tw-border-opacity: 1;
-  border-color: rgb(0 0 0 / var(--tw-border-opacity));
-}
-
 .bg-accent{
   --tw-bg-opacity: 1;
   background-color: var(--fallback-a,oklch(var(--a)/var(--tw-bg-opacity)));
@@ -3395,8 +3386,33 @@ details.collapse summary::-webkit-details-marker{
   background-color: rgb(251 146 60 / var(--tw-bg-opacity));
 }
 
+.bg-red-400{
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 113 113 / var(--tw-bg-opacity));
+}
+
 .bg-opacity-60{
   --tw-bg-opacity: 0.6;
+}
+
+.bg-opacity-0{
+  --tw-bg-opacity: 0;
+}
+
+.bg-opacity-50{
+  --tw-bg-opacity: 0.5;
+}
+
+.bg-opacity-100{
+  --tw-bg-opacity: 1;
+}
+
+.bg-food-texture{
+  background-image: url('/static/images/project/seamless.png');
+}
+
+.bg-repeat{
+  background-repeat: repeat;
 }
 
 .object-cover{
@@ -3585,6 +3601,12 @@ details.collapse summary::-webkit-details-marker{
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
+.backdrop-opacity-50{
+  --tw-backdrop-opacity: opacity(0.5);
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+}
+
 .transition{
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
@@ -3682,10 +3704,6 @@ details.collapse summary::-webkit-details-marker{
 .selection\:text-accent-content::selection{
   --tw-text-opacity: 1;
   color: var(--fallback-ac,oklch(var(--ac)/var(--tw-text-opacity)));
-}
-
-.hover\:cursor-pointer:hover{
-  cursor: pointer;
 }
 
 .hover\:bg-accent:hover{
