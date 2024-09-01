@@ -212,14 +212,10 @@ def recipe_detail(recipe_id):
         recipe.cook_time_hour = None
         recipe.cook_time_minute = recipe.cook_time_in_minutes
 
-    # Get all rows of rating table which has current recipe's recipe_id
-    ratings = db.session.execute(db.select(Rating).filter_by(recipe_id=recipe_id)).scalars().all()
-
     # Get the rating of current user
-    current_user_rating = list(filter(lambda rating: rating.user_id == session["user_id"], ratings))
-    current_user_rating = current_user_rating[0].rating if current_user_rating else 0
+    current_user_rating = db.session.execute(db.select(Rating).filter_by(recipe_id=recipe_id, user_id=session["user_id"])).scalar_one_or_none().rating
         
-    return render_template("/recipe/recipe_detail.html", recipe=recipe, avg_rating=get_avg_rating(ratings), ratings_count=len(ratings), current_user_rating=current_user_rating)
+    return render_template("/recipe/recipe_detail.html", recipe=recipe, current_user_rating=current_user_rating)
 
 
 @app.route("/upload", methods=["GET", "POST"])
