@@ -3120,6 +3120,10 @@ details.collapse summary::-webkit-details-marker{
   top: 0.5rem;
 }
 
+.bottom-0{
+  bottom: 0px;
+}
+
 .z-50{
   z-index: 50;
 }
@@ -3175,10 +3179,6 @@ details.collapse summary::-webkit-details-marker{
 
 .ml-5{
   margin-left: 1.25rem;
-}
-
-.mr-2{
-  margin-right: 0.5rem;
 }
 
 .mr-5{
@@ -3259,6 +3259,11 @@ details.collapse summary::-webkit-details-marker{
 
 .h-full{
   height: 100%;
+}
+
+.h-fit{
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 .min-h-12{
@@ -3488,6 +3493,10 @@ details.collapse summary::-webkit-details-marker{
   padding: 1.25rem;
 }
 
+.p-1{
+  padding: 0.25rem;
+}
+
 .px-2{
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -3521,6 +3530,10 @@ details.collapse summary::-webkit-details-marker{
 .py-5{
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
+}
+
+.pb-0{
+  padding-bottom: 0px;
 }
 
 .text-center{
@@ -3832,20 +3845,16 @@ details.collapse summary::-webkit-details-marker{
 }
 
 @media (min-width: 768px){
-  .md\:visible{
-    visibility: visible;
-  }
-
   .md\:mr-10{
     margin-right: 2.5rem;
   }
 
-  .md\:mt-10{
-    margin-top: 2.5rem;
-  }
-
   .md\:mr-2{
     margin-right: 0.5rem;
+  }
+
+  .md\:mt-10{
+    margin-top: 2.5rem;
   }
 
   .md\:inline{

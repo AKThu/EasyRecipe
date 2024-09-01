@@ -213,7 +213,8 @@ def recipe_detail(recipe_id):
         recipe.cook_time_minute = recipe.cook_time_in_minutes
 
     # Get the rating of current user
-    current_user_rating = db.session.execute(db.select(Rating).filter_by(recipe_id=recipe_id, user_id=session["user_id"])).scalar_one_or_none().rating
+    current_user_rating = db.session.execute(db.select(Rating).filter_by(recipe_id=recipe_id, user_id=session["user_id"])).scalar_one_or_none()
+    current_user_rating = current_user_rating.rating if current_user_rating else 0
         
     return render_template("/recipe/recipe_detail.html", recipe=recipe, current_user_rating=current_user_rating)
 
