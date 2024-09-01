@@ -15,7 +15,9 @@ def home():
     # newly added recipes
     new_recipes = db.session.execute(db.select(Recipe).order_by(desc(Recipe.id))).scalars().fetchmany(4)
 
-    # TODO
+    # top rated recipes
+    top_rated_recipes = db.session.execute(db.select(Recipe).order_by())
+
     users = db.session.execute(db.select(User).order_by(User.username)).scalars().fetchall()
     return render_template("home.html", new_recipes=new_recipes, users=users)
 
@@ -293,9 +295,9 @@ def upload():
 @app.route("/recipe/<int:recipe_id>/rate", methods=["POST"])
 @login_required
 def rate_recipe(recipe_id):
+    ## Adding a new row or updating the rating table
     # add rating to database if not already exists otherwise update the already existing row
     rating = db.session.execute(db.select(Rating).filter_by(user_id=session["user_id"], recipe_id=recipe_id)).scalar_one_or_none()
-
     # if user already rated before the recipe
     if rating:
         rating.rating = request.form.get("rating")
@@ -309,6 +311,22 @@ def rate_recipe(recipe_id):
         db.session.add(rating)
 
     # Save changes to the database
+    db.session.commit()
+
+    ## Updating the average_rating column of recipe table
+    # get all rating rows of current recipe
+    ratings = db.session.execute(db.select(Rating).filter_by(recipe_id=recipe_id)).scalars().all()
+    # get total ratings
+    total_ratings = len(ratings)
+    # calculate average rating
+    average_rating = get_avg_rating(ratings)
+
+    # get current recipe row to update total_ratings and average_rating column
+    recipe = db.session.execute(db.select(Recipe).filter_by(id=recipe_id)).scalar_one_or_none()
+    # update total_ratings and average_rating
+    recipe.total_ratings = total_ratings
+    recipe.average_rating = average_rating
+    # save changes to database
     db.session.commit()
     
     flash("thank you for rating", "success")

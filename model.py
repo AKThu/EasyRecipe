@@ -24,6 +24,8 @@ class Recipe(db.Model):
     image = mapped_column(String(255), nullable=False)
     datetime = mapped_column(String(100), nullable=False)
     user_id = mapped_column(Integer, ForeignKey("user.id"))
+    average_rating = mapped_column(Integer, nullable=False, default=0)
+    total_ratings = mapped_column(Integer, nullable=False, default=0)
 
 class Rating(db.Model):
     __tablename__ = "rating"

@@ -14,22 +14,27 @@
 <body class="bg-base-300 bg-food-texture bg-repeat text-base-content min-h-screen flex flex-col font-poppins transition duration-500 selection:bg-accent selection:text-accent-content">
   <header class="sticky w-full p-2 top-0 z-50">
     <!-- Navbar -->
-    <div class="navbar h-fit drop-shadow-md rounded-lg bg-base-100">
+    <div class="navbar min-h-12 py-0 px-2 drop-shadow-md rounded-lg bg-base-100">
       <div class="w-screen max-w-[2000px] mx-auto">
         <!-- Navbar Logo -->
         <div class="flex-1 w-fit">
-          <a href="/" class="btn btn-ghost text-xl">Taka Recipes</a>
+          <a href="/" class="btn btn-ghost btn-sm text-xl">Taka Recipes</a>
         </div>
-        <!-- Search input -->
-        <div class="mr-10">
-          Search
-        </div>
+        <!-- Search button -->
+        {% if session["user_id"] %}
+        <button onclick="search_bar.showModal()" class="mr-5 md:mr-10 flex flex-row items-center stroke-gray-600 hover:stroke-gray-400 text-gray-600 hover:text-gray-400 px-2 py-1 bg-gray-200 hover:bg-gray-100 rounded-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 26 26" stroke-width="1.5" stroke="currentColor" class="size-4 md:mr-2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+          </svg>
+          <p class="text-sm hidden md:inline">search recipe</p>
+        </button>
+        {% endif %}
         <!-- User Profile -->
-        <div class="flex-none">
+        <div class="flex-none h-8">
           {% if session["user_id"] %}
             <!-- User Profile -->
             <div class="dropdown dropdown-end">
-              <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+              <div tabindex="0" role="button" class="btn btn-sm btn-circle avatar">
                 <div class="w-8 rounded-full">
                   <img alt="User profile"
                     src="{{ url_for('static', filename=session['user_profile_image']) }}" />
@@ -46,12 +51,12 @@
             <!-- Register or Login -->
             <!-- For large screens -->
             <div class="hidden lg:block">
-              <a href="/register" class="btn btn-ghost text-base">Register</a>
-              <a href="/login" class="btn btn-ghost text-base">Login</a>
+              <a href="/register" class="btn btn-ghost btn-sm text-base">Register</a>
+              <a href="/login" class="btn btn-ghost btn-sm text-base">Login</a>
             </div>
             <!-- Menu Button For small screens -->
             <div class="dropdown dropdown-end block lg:hidden">
-              <div tabindex="0" role="button" class="btn btn-accent text-accent-content m-1">Menu</div>
+              <div tabindex="0" role="button" class="btn btn-accent btn-sm text-accent-content">Menu</div>
               <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
                 <li><a href="/register">Register</a></li>
                 <li><a href="/login">Login</a></li>
@@ -62,6 +67,25 @@
       </div>
     </div>
   </header>
+
+  <!-- Search bar -->
+  <!-- There is a minor visual glitch when closing the dialog box. This is undesirable, so I have moved the search dialog box code outside of the navbar. This change has resolved the visual artifact. -->
+  <dialog id="search_bar" class="modal modal-top">
+    <div class="modal-box bg-transparent w-full md:w-[600px] mx-auto mt-3 md:mt-10 rounded-2xl p-3">
+      <form action="">
+        <label class="input flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 28 28" stroke-width="1.5" stroke="currentColor" class="size-6 stroke-gray-500">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+          </svg>          
+          <input type="text" class="grow" placeholder="Search recipe" name="recipe"/>
+          <kbd class="kbd kbd-sm">Esc</kbd>
+        </label>
+      </form>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+      <button class="cursor-default">close</button>
+    </form>
+  </dialog>
 
   <main class="grow flex flex-col items-center justify-center font-poppins">
     <!-- Toast notification -->
