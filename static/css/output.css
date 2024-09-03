@@ -3207,6 +3207,18 @@ details.collapse summary::-webkit-details-marker{
   margin-top: 1.25rem;
 }
 
+.ml-0{
+  margin-left: 0px;
+}
+
+.mt-\[1px\]{
+  margin-top: 1px;
+}
+
+.mt-\[5px\]{
+  margin-top: 5px;
+}
+
 .block{
   display: block;
 }
@@ -3423,6 +3435,29 @@ details.collapse summary::-webkit-details-marker{
   border-top-right-radius: 0.75rem;
 }
 
+.rounded-s-2xl{
+  border-start-start-radius: 1rem;
+  border-end-start-radius: 1rem;
+}
+
+.border-2{
+  border-width: 2px;
+}
+
+.border-4{
+  border-width: 4px;
+}
+
+.border-accent{
+  --tw-border-opacity: 1;
+  border-color: var(--fallback-a,oklch(var(--a)/var(--tw-border-opacity)));
+}
+
+.border-red-500{
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity));
+}
+
 .bg-accent{
   --tw-bg-opacity: 1;
   background-color: var(--fallback-a,oklch(var(--a)/var(--tw-bg-opacity)));
@@ -3465,6 +3500,10 @@ details.collapse summary::-webkit-details-marker{
   background-image: url('/static/images/project/seamless.png');
 }
 
+.bg-cover{
+  background-size: cover;
+}
+
 .bg-repeat{
   background-repeat: repeat;
 }
@@ -3477,9 +3516,19 @@ details.collapse summary::-webkit-details-marker{
   stroke: #4b5563;
 }
 
+.object-contain{
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
 .object-cover{
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.object-scale-down{
+  -o-object-fit: scale-down;
+     object-fit: scale-down;
 }
 
 .p-10{
@@ -3496,6 +3545,10 @@ details.collapse summary::-webkit-details-marker{
 
 .p-5{
   padding: 1.25rem;
+}
+
+.p-1{
+  padding: 0.25rem;
 }
 
 .px-2{
@@ -3695,6 +3748,23 @@ details.collapse summary::-webkit-details-marker{
   --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.ring-1{
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+.ring-2{
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+.ring-accent{
+  --tw-ring-opacity: 1;
+  --tw-ring-color: var(--fallback-a,oklch(var(--a)/var(--tw-ring-opacity)));
 }
 
 .drop-shadow-lg{

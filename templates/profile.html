@@ -5,6 +5,7 @@
 {% block main %}
 <div class="w-full flex flex-row justify-center gap-32">
     <div>
+        <!-- Username and email -->
         <div>
             <div class="my-2">
                 <p class="text-sm">Username</p>
@@ -15,6 +16,7 @@
                 <p class="font-semibold">{{ email }}</p>
             </div>
         </div>
+        <!-- Change Password -->
         <form action="/profile" method="post">
             <label class="form-control w-full max-w-5xl">
                 <div class="label">
@@ -32,11 +34,13 @@
             <button type="submit" class="btn btn-accent text-slate-100">Submit</button>
         </form>
     </div>
+    <!-- User profile -->
     <div class="size-full md:size-60">
-        <img src="{{ url_for('static', filename=session['user_profile_image']) }}" alt="user profile image">
+        <img src="{{ url_for('static', filename=session['user_profile_image']) }}" alt="user profile image" class="object-cover size-full">
         <button id="change_profile_image_button" class="btn w-full" onclick="profile_modal.showModal()">Change profile image</button>
     </div>
 </div>
+<!-- Change user profile modal -->
 <dialog id="profile_modal" class="modal">
     <div class="modal-box">
         <form method="dialog">
@@ -44,7 +48,7 @@
         </form>
         <h3 class="text-lg font-bold">Change profile image</h3>
         <form action="/change_profile_image" method="post" enctype="multipart/form-data" class="py-3 flex flex-col items-center">
-            <img id="profile" src="{{ url_for('static', filename=session['user_profile_image']) }}" alt="user profile image" class="size-full md:size-60 mx-auto">
+            <img id="profile" src="{{ url_for('static', filename=session['user_profile_image']) }}" alt="user profile image" class="size-full md:size-60 mx-auto object-cover">
             <input id="upload_profile" type="file" accept="image/*" class="hidden" name="profile_image">
             <input id="upload_button" type="button" value="Upload image" class="btn mx-auto mt-3">
             <button type="submit" class="btn btn-accent w-full mt-10">Submit</button>

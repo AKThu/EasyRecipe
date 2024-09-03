@@ -1,20 +1,36 @@
 <h3 class="text-center text-2xl font-medium text-base-content">Top Rated Recipes</h3>
 <div class="py-10">
-    {% for key in range(1, 6) %}
-    <div id="tr{{key}}" class="card md:card-side bg-base-100 shadow-xl w-full lg:w-2/3 mx-auto transition duration-500 {{ 'hidden' if key != 1}}">
+    {% for top_rated_recipe in top_rated_recipes %}
+    <div id="tr{{loop.index}}" class="card md:card-side bg-base-100 shadow-xl w-full lg:w-2/3 mx-auto transition duration-500 {{ 'hidden' if loop.index != 1}}">
         <figure class="size-full md:size-60">
-            <img src="https://www.recipetineats.com/tachyon/2024/08/Hokkien-noodles-with-chicken_2.jpg?resize=747%2C747&zoom=1" alt="Food"/>
+            <img src="{{ url_for('static', filename=top_rated_recipe.image) }}" alt="{{ top_rated_recipe.name }}"/>
         </figure>
         <div class="card-body">
-            <h2 class="card-title">{{ key }}</h2>
-            <p>Click the button to watch on Jetflix app.</p>
+            <h2 class="card-title">{{ top_rated_recipe.name }}</h2>
+            <div class="my-3 text-sm font-semibold">
+                <span class="align-top">{{top_rated_recipe.average_rating}}</span>
+                <span class="rating rating-sm rating-half">
+                    <input type="radio" name="rating{{loop.index}}" disabled class="rating-hidden cursor-default" value="0" {{ "checked" if top_rated_recipe.average_rating >= 0 }} />
+                    <input type="radio" name="rating{{loop.index}}" disabled class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="0.5" {{ "checked" if top_rated_recipe.average_rating >= 0.5 }} />
+                    <input type="radio" name="rating{{loop.index}}" disabled class="mask mask-star-2 mask-half-2 bg-orange-400 cursor-default" value="1" {{ "checked" if top_rated_recipe.average_rating >= 1 }} />
+                    <input type="radio" name="rating{{loop.index}}" disabled class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="1.5" {{ "checked" if top_rated_recipe.average_rating >= 1.5 }} />
+                    <input type="radio" name="rating{{loop.index}}" disabled class="mask mask-star-2 mask-half-2 bg-orange-400 cursor-default" value="2" {{ "checked" if top_rated_recipe.average_rating >= 2 }} />
+                    <input type="radio" name="rating{{loop.index}}" disabled class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="2.5" {{ "checked" if top_rated_recipe.average_rating >= 2.5 }} />
+                    <input type="radio" name="rating{{loop.index}}" disabled class="mask mask-star-2 mask-half-2 bg-orange-400 cursor-default" value="3" {{ "checked" if top_rated_recipe.average_rating >= 3 }} />
+                    <input type="radio" name="rating{{loop.index}}" disabled class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="3.5" {{ "checked" if top_rated_recipe.average_rating >= 3.5 }} />
+                    <input type="radio" name="rating{{loop.index}}" disabled class="mask mask-star-2 mask-half-2 bg-orange-400 cursor-default" value="4" {{ "checked" if top_rated_recipe.average_rating >= 4 }} />
+                    <input type="radio" name="rating{{loop.index}}" disabled class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="4.5" {{ "checked" if top_rated_recipe.average_rating >= 4.5 }} />
+                    <input type="radio" name="rating{{loop.index}}" disabled class="mask mask-star-2 mask-half-2 bg-orange-400 cursor-default" value="5" {{ "checked" if top_rated_recipe.average_rating == 5 }} />
+                </span>
+                <span class="align-top">({{top_rated_recipe.total_ratings}})</span>
+            </div>
             <div class="flex flex-row justify-between gap-5">
                 <div class="card-actions justify-end">
-                    <a href="/recipe/pizza" class="btn btn-accent">See recipe</a>
+                    <a href="/recipe/{{top_rated_recipe.id}}" class="btn btn-accent">See recipe</a>
                 </div>
                 <div>
-                    <a onclick="prevSlide(event)" id="{{key - 1 if key > 1 else 5}}" class="btn hover:bg-accent hover:text-accent-content">❮</a>
-                    <a onclick="nextSlide(event)" id="{{key + 1 if key < 5 else 1}}" class="btn hover:bg-accent hover:text-accent-content">❯</a>
+                    <a onclick="prevSlide(event)" id="{{loop.index - 1 if loop.index > 1 else 5}}" class="btn hover:bg-accent hover:text-accent-content">❮</a>
+                    <a onclick="nextSlide(event)" id="{{loop.index + 1 if loop.index < 5 else 1}}" class="btn hover:bg-accent hover:text-accent-content">❯</a>
                 </div>
             </div>
         </div>

@@ -16,10 +16,10 @@ def home():
     new_recipes = db.session.execute(db.select(Recipe).order_by(desc(Recipe.id))).scalars().fetchmany(4)
 
     # top rated recipes
-    top_rated_recipes = db.session.execute(db.select(Recipe).order_by())
+    top_rated_recipes = db.session.execute(db.select(Recipe).order_by(desc(Recipe.average_rating), desc(Recipe.total_ratings))).scalars().fetchmany(5)
 
     users = db.session.execute(db.select(User).order_by(User.username)).scalars().fetchall()
-    return render_template("home.html", new_recipes=new_recipes, users=users)
+    return render_template("home.html", new_recipes=new_recipes, top_rated_recipes=top_rated_recipes, users=users)
 
 
 @app.route("/register", methods=["GET", "POST"])

@@ -7,7 +7,7 @@
     <p class="text-center text-3xl font-bold mb-5">{{ recipe.name }}</p>
     <div class="flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-5 w-full">
         <div class="w-full">
-            <img class="object-cover w-full sm:w-[400px] lg:w-[500px] h-72 lg:h-96 mx-auto rounded-xl drop-shadow-lg" src="{{ url_for('static', filename=recipe.image) }}" alt="pizza">
+            <img class="object-cover w-full sm:w-[400px] lg:w-[500px] h-72 lg:h-96 mx-auto rounded-xl drop-shadow-lg" src="{{ url_for('static', filename=recipe.image) }}" alt="{{recipe.name}}">
             <div class="mt-10 drop-shadow-lg bg-base-100 rounded-xl">
                 <div class="h-2 bg-accent rounded-t-xl"></div>
                 <div class="grid grid-rows-2 text-sm md:text-base">
@@ -28,7 +28,7 @@
                     </div>
                     <div class="p-3">
                         <span class="font-bold">Average rating: </span>
-                        <span class="hover:text-rose-500 ml-3">{{recipe.average_rating}}</span>
+                        <span class="hover:text-rose-500 ml-3 align-top text-sm font-semibold">{{recipe.average_rating}}</span>
                         <span class="rating rating-sm rating-half">
                             <input type="radio" name="rating" disabled class="rating-hidden cursor-default" value="0" {{ "checked" if recipe.average_rating >= 0 }} />
                             <input type="radio" name="rating" disabled class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="0.5" {{ "checked" if recipe.average_rating >= 0.5 }} />
@@ -42,7 +42,7 @@
                             <input type="radio" name="rating" disabled class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="4.5" {{ "checked" if recipe.average_rating >= 4.5 }} />
                             <input type="radio" name="rating" disabled class="mask mask-star-2 mask-half-2 bg-orange-400 cursor-default" value="5" {{ "checked" if recipe.average_rating == 5 }} />
                         </span>
-                        <span class="ml-3 text-sm">({{recipe.total_ratings}} {{ "rating" if recipe.total_ratings <= 1 else "ratings"}})</span>
+                        <span class="align-top text-sm font-semibold">({{recipe.total_ratings}})</span>
                     </div>
                 </div>
             </div>
