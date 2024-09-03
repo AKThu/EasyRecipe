@@ -12,9 +12,23 @@
             </div>
             <div class="p-5">
                 <h2 class="text-lg font-bold w-fit hover:underline hover:text-rose-500">{{recipe.name}}</h2>
-                <div>
-                    rating - *****
-                </div>
+            </div>
+            <div class="p-3 text-sm">
+                <span>{{recipe.average_rating}}</span>
+                <span class="rating rating-sm rating-half">
+                    <input type="radio" name="rating{{loop.index}}" disabled class="rating-hidden cursor-default" value="0" {{ "checked" if recipe.average_rating >= 0 }} />
+                    <input type="radio" name="rating{{loop.index}}" disabled class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="0.5" {{ "checked" if recipe.average_rating >= 0.5 }} />
+                    <input type="radio" name="rating{{loop.index}}" disabled class="mask mask-star-2 mask-half-2 bg-orange-400 cursor-default" value="1" {{ "checked" if recipe.average_rating >= 1 }} />
+                    <input type="radio" name="rating{{loop.index}}" disabled class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="1.5" {{ "checked" if recipe.average_rating >= 1.5 }} />
+                    <input type="radio" name="rating{{loop.index}}" disabled class="mask mask-star-2 mask-half-2 bg-orange-400 cursor-default" value="2" {{ "checked" if recipe.average_rating >= 2 }} />
+                    <input type="radio" name="rating{{loop.index}}" disabled class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="2.5" {{ "checked" if recipe.average_rating >= 2.5 }} />
+                    <input type="radio" name="rating{{loop.index}}" disabled class="mask mask-star-2 mask-half-2 bg-orange-400 cursor-default" value="3" {{ "checked" if recipe.average_rating >= 3 }} />
+                    <input type="radio" name="rating{{loop.index}}" disabled class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="3.5" {{ "checked" if recipe.average_rating >= 3.5 }} />
+                    <input type="radio" name="rating{{loop.index}}" disabled class="mask mask-star-2 mask-half-2 bg-orange-400 cursor-default" value="4" {{ "checked" if recipe.average_rating >= 4 }} />
+                    <input type="radio" name="rating{{loop.index}}" disabled class="mask mask-star-2 mask-half-1 bg-orange-400 cursor-default" value="4.5" {{ "checked" if recipe.average_rating >= 4.5 }} />
+                    <input type="radio" name="rating{{loop.index}}" disabled class="mask mask-star-2 mask-half-2 bg-orange-400 cursor-default" value="5" {{ "checked" if recipe.average_rating == 5 }} />
+                </span>
+                <span>({{recipe.total_ratings}})</span>
             </div>
         </a>
         {% endfor %}

@@ -2818,9 +2818,19 @@ details.collapse summary::-webkit-details-marker{
   place-items: start;
 }
 
+.rating-xs input{
+  height: 0.75rem;
+  width: 0.75rem;
+}
+
 .rating-sm input{
   height: 1rem;
   width: 1rem;
+}
+
+.rating-md input{
+  height: 1.5rem;
+  width: 1.5rem;
 }
 
 .rating-lg input{
@@ -3120,10 +3130,6 @@ details.collapse summary::-webkit-details-marker{
   top: 0.5rem;
 }
 
-.bottom-0{
-  bottom: 0px;
-}
-
 .z-50{
   z-index: 50;
 }
@@ -3171,6 +3177,10 @@ details.collapse summary::-webkit-details-marker{
 
 .mb-8{
   margin-bottom: 2rem;
+}
+
+.ml-2{
+  margin-left: 0.5rem;
 }
 
 .ml-3{
@@ -3259,11 +3269,6 @@ details.collapse summary::-webkit-details-marker{
 
 .h-full{
   height: 100%;
-}
-
-.h-fit{
-  height: -moz-fit-content;
-  height: fit-content;
 }
 
 .min-h-12{
@@ -3493,10 +3498,6 @@ details.collapse summary::-webkit-details-marker{
   padding: 1.25rem;
 }
 
-.p-1{
-  padding: 0.25rem;
-}
-
 .px-2{
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -3542,6 +3543,26 @@ details.collapse summary::-webkit-details-marker{
 
 .text-right{
   text-align: right;
+}
+
+.align-baseline{
+  vertical-align: baseline;
+}
+
+.align-top{
+  vertical-align: top;
+}
+
+.align-middle{
+  vertical-align: middle;
+}
+
+.align-bottom{
+  vertical-align: bottom;
+}
+
+.align-text-top{
+  vertical-align: text-top;
 }
 
 .font-poppins{
