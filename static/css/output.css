@@ -1080,6 +1080,18 @@ html{
     }
   }
 
+  .btn-outline.btn-primary:hover{
+    --tw-text-opacity: 1;
+    color: var(--fallback-pc,oklch(var(--pc)/var(--tw-text-opacity)));
+  }
+
+  @supports (color: color-mix(in oklab, black, black)){
+    .btn-outline.btn-primary:hover{
+      background-color: color-mix(in oklab, var(--fallback-p,oklch(var(--p)/1)) 90%, black);
+      border-color: color-mix(in oklab, var(--fallback-p,oklch(var(--p)/1)) 90%, black);
+    }
+  }
+
   .btn-outline.btn-accent:hover{
     --tw-text-opacity: 1;
     color: var(--fallback-ac,oklch(var(--ac)/var(--tw-text-opacity)));
@@ -1684,8 +1696,16 @@ html{
     border-color: var(--btn-color, var(--fallback-b2));
   }
 
+  .btn-primary{
+    --btn-color: var(--fallback-p);
+  }
+
   .btn-accent{
     --btn-color: var(--fallback-a);
+  }
+
+  .btn-neutral{
+    --btn-color: var(--fallback-n);
   }
 }
 
@@ -1745,9 +1765,23 @@ html{
   outline-offset: 2px;
 }
 
+.btn-primary{
+  --tw-text-opacity: 1;
+  color: var(--fallback-pc,oklch(var(--pc)/var(--tw-text-opacity)));
+  outline-color: var(--fallback-p,oklch(var(--p)/1));
+}
+
 @supports (color: oklch(0% 0 0)){
+  .btn-primary{
+    --btn-color: var(--p);
+  }
+
   .btn-accent{
     --btn-color: var(--a);
+  }
+
+  .btn-neutral{
+    --btn-color: var(--n);
   }
 }
 
@@ -1755,6 +1789,12 @@ html{
   --tw-text-opacity: 1;
   color: var(--fallback-ac,oklch(var(--ac)/var(--tw-text-opacity)));
   outline-color: var(--fallback-a,oklch(var(--a)/1));
+}
+
+.btn-neutral{
+  --tw-text-opacity: 1;
+  color: var(--fallback-nc,oklch(var(--nc)/var(--tw-text-opacity)));
+  outline-color: var(--fallback-n,oklch(var(--n)/1));
 }
 
 .btn.glass{
@@ -1798,6 +1838,11 @@ html{
   background-color: var(--fallback-bc,oklch(var(--bc)/var(--tw-bg-opacity)));
   --tw-text-opacity: 1;
   color: var(--fallback-b1,oklch(var(--b1)/var(--tw-text-opacity)));
+}
+
+.btn-outline.btn-primary{
+  --tw-text-opacity: 1;
+  color: var(--fallback-p,oklch(var(--p)/var(--tw-text-opacity)));
 }
 
 .btn-outline.btn-primary.btn-active{
@@ -3110,6 +3155,10 @@ details.collapse summary::-webkit-details-marker{
   position: static;
 }
 
+.fixed{
+  position: fixed;
+}
+
 .absolute{
   position: absolute;
 }
@@ -3142,6 +3191,10 @@ details.collapse summary::-webkit-details-marker{
   z-index: auto;
 }
 
+.m-2{
+  margin: 0.5rem;
+}
+
 .mx-auto{
   margin-left: auto;
   margin-right: auto;
@@ -3165,6 +3218,11 @@ details.collapse summary::-webkit-details-marker{
 .my-5{
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
+}
+
+.mx-3{
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
 }
 
 .mb-10{
@@ -3217,6 +3275,10 @@ details.collapse summary::-webkit-details-marker{
 
 .mt-\[5px\]{
   margin-top: 5px;
+}
+
+.mb-3{
+  margin-bottom: 0.75rem;
 }
 
 .block{
@@ -3973,12 +4035,24 @@ details.collapse summary::-webkit-details-marker{
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .md\:flex-row{
+    flex-direction: row;
+  }
+
   .md\:justify-center{
     justify-content: center;
   }
 
   .md\:gap-8{
     gap: 2rem;
+  }
+
+  .md\:gap-32{
+    gap: 8rem;
+  }
+
+  .md\:p-0{
+    padding: 0px;
   }
 
   .md\:text-base{

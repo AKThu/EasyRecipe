@@ -3,7 +3,12 @@
 {% block title %}{{session["username"]}}{% endblock %}
 
 {% block main %}
-<div class="w-full flex flex-row justify-center gap-32">
+<div class="w-full flex flex-col p-3 md:flex-row justify-center gap-5 md:gap-32">
+    <!-- User profile -->
+    <div class="size-full md:size-60">
+        <img src="{{ url_for('static', filename=session['user_profile_image']) }}" alt="user profile image" class="object-cover size-full mb-3">
+        <button id="change_profile_image_button" class="btn w-full" onclick="profile_modal.showModal()">Change profile image</button>
+    </div>
     <div>
         <!-- Username and email -->
         <div>
@@ -33,11 +38,6 @@
             <br>
             <button type="submit" class="btn btn-accent text-slate-100">Submit</button>
         </form>
-    </div>
-    <!-- User profile -->
-    <div class="size-full md:size-60">
-        <img src="{{ url_for('static', filename=session['user_profile_image']) }}" alt="user profile image" class="object-cover size-full">
-        <button id="change_profile_image_button" class="btn w-full" onclick="profile_modal.showModal()">Change profile image</button>
     </div>
 </div>
 <!-- Change user profile modal -->
