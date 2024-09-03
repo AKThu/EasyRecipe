@@ -34,16 +34,19 @@ def register():
 
         # check if input fields contain values
         if not username or not email or not password or not repassword:
-            return render_template("error.html", error=error(HTTPStatus.FORBIDDEN, "Please enter value in all input fields"))
+            flash("Please enter value in all input fields", "error")
+            return redirect(request.url)
 
         # check password confirmation
         if password != repassword:
-            return render_template("error.html", error=error(HTTPStatus.IM_A_TEAPOT, "Two passwords do not match"))
+            flash("Passwords do not match", "error")
+            return redirect(request.url)
 
         # check if the user with the same email already exists
         user_exists = bool(db.session.execute(db.select(User).filter_by(email=email)).scalar_one_or_none())
         if user_exists:
-            return render_template("error.html", error=error(HTTPStatus.FORBIDDEN, "The email is already registered"))
+            flash("Email already registered", "error")
+            return redirect(request.url)
 
         # create user object
         user = User(
