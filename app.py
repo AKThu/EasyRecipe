@@ -193,7 +193,16 @@ def change_profile_image():
 @app.route("/recipes")
 @login_required
 def recipes():
-    recipes = db.paginate(db.select(Recipe).order_by(Recipe.id), page=int(request.args.get("page", "1")))
+    # Get url parameter from the request
+    search_recipe = request.args.get("search_recipe")
+
+    if search_recipe:
+        # Query ralated recipes from the database
+        recipes = db.paginate(db.select(Recipe).filter(Recipe.name.like("%{search_recipe}%".format(search_recipe=search_recipe))).order_by(Recipe.id), page=int(request.args.get("page", "1")))
+    else:
+        # Query all recipes from the database
+        recipes = db.paginate(db.select(Recipe).order_by(Recipe.id), page=int(request.args.get("page", "1")))
+
     return render_template("/recipe/all_recipes.html", recipes=recipes)
 
 
@@ -331,6 +340,7 @@ def rate_recipe(recipe_id):
     
     flash("thank you for rating", "success")
     return redirect("/recipe/{recipe_id}".format(recipe_id=recipe_id))
+
 
 # ERROR HANDLING
 @app.errorhandler(404)

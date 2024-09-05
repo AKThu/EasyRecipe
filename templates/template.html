@@ -72,12 +72,12 @@
   <!-- There is a minor visual glitch when closing the dialog box. This is undesirable, so I have moved the search dialog box code outside of the navbar. This change has resolved the visual artifact. -->
   <dialog id="search_bar" class="modal modal-top">
     <div class="modal-box bg-transparent w-full md:w-[600px] mx-auto mt-3 md:mt-10 rounded-2xl p-3">
-      <form action="">
+      <form action="/recipes">
         <label class="input flex items-center gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 28 28" stroke-width="1.5" stroke="currentColor" class="size-6 stroke-gray-500">
             <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
           </svg>          
-          <input type="text" class="grow" placeholder="Search recipe" name="recipe"/>
+          <input id="search_input" type="text" class="grow" placeholder="Search recipe" name="search_recipe" autocomplete="off"/>
           <kbd class="kbd kbd-sm">Esc</kbd>
         </label>
       </form>

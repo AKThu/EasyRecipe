@@ -5,9 +5,9 @@
         <div>
             <img src="{{ url_for('static', filename=new_recipe.image) }}" class="rounded-t-xl aspect-square object-cover" alt="{{ new_recipe.name }}" />
         </div>
-        <div class="p-5 pb-0">
-            <h2 class="text-lg font-bold w-fit hover:underline hover:text-rose-500">{{ new_recipe.name }}</h2>
-            <div class="my-3 text-sm font-semibold">
+        <div class="p-5">
+            <h2 class="text-lg font-semibold w-fit hover:underline hover:text-rose-500">{{ new_recipe.name }}</h2>
+            <div class="my-3 text-sm">
                 <span class="align-top">{{new_recipe.average_rating}}</span>
                 <span class="rating rating-sm rating-half">
                     <input type="radio" name="rating{{loop.index}}" disabled class="rating-hidden cursor-default" value="0" {{ "checked" if new_recipe.average_rating >= 0 }} />
