@@ -346,16 +346,6 @@ def rate_recipe(recipe_id):
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('error.html', error=error(HTTPStatus.NOT_FOUND))
-    
-
-# TEST ROUTE
-@app.route("/test", methods=["GET", "POST"])
-def test():
-    if request.method == "POST":
-        print(request.form.get("rating"))
-        return render_template("test.html", data=request.form.get("rating"))
-    else:
-        return render_template("test.html")
 
 
 if __name__ == "__main__":

@@ -11,7 +11,7 @@ DEFAULT_USER_PROFILE = 'images/anonymous.jpg'
 
 app = Flask(__name__, static_folder='./static')
 app.secret_key = os.getenv("SECRET_KEY")
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///demo.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///recipes.db"
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 class Base(DeclarativeBase):
