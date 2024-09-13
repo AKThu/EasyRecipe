@@ -3155,6 +3155,11 @@ details.collapse summary::-webkit-details-marker{
   height: 1.5rem;
 }
 
+.size-8{
+  width: 2rem;
+  height: 2rem;
+}
+
 .size-auto{
   width: auto;
   height: auto;
@@ -3750,6 +3755,11 @@ details.collapse summary::-webkit-details-marker{
 }
 
 @media (min-width: 640px){
+  .sm\:size-8{
+    width: 2rem;
+    height: 2rem;
+  }
+
   .sm\:w-\[400px\]{
     width: 400px;
   }
