@@ -5,4 +5,4 @@ storage/
 venv/
 /test.py
 /.env
-static/images/
+# static/images/
