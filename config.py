@@ -3,7 +3,10 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
+from dotenv import load_dotenv
 
+os.path.join(os.path.dirname(__file__), 'EasyRecipe/.env')
+load_dotenv()
 
 UPLOAD_FOLDER = './static/images/'
 DEFAULT_USER_PROFILE = 'images/anonymous.jpg'
