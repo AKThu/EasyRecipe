@@ -3,7 +3,6 @@ import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
-from dotenv import load_dotenv
 
 
 UPLOAD_FOLDER = './static/images/'
