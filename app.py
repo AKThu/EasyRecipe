@@ -41,6 +41,12 @@ def register():
         if password != repassword:
             flash("Passwords do not match", "error")
             return redirect(request.url)
+        
+        # check if the user with the same username already exists
+        username_exists = bool(db.session.execute(db.select(User).filter_by(username=username)).scalar_one_or_none())
+        if username_exists:
+            flash("Username already taken", "error")
+            return redirect(request.url)
 
         # check if the user with the same email already exists
         user_exists = bool(db.session.execute(db.select(User).filter_by(email=email)).scalar_one_or_none())
