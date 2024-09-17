@@ -1,5 +1,5 @@
 # Easy Recipes
-#### Video Demo: 
+#### Video Demo: https://youtu.be/z5ijRYbaA2Q
 #### Description: 
 
 Easy Recipe is a website for sharing recipes. Users can create their accounts, explore recipes created by other users, and create recipes.
