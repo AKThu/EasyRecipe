@@ -22,14 +22,12 @@
           <a href="/" class="btn btn-ghost btn-sm text-xl"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo" class="size-6">Easy Recipes</a>
         </div>
         <!-- Search button -->
-        {% if session["user_id"] %}
         <button onclick="search_bar.showModal()" class="mr-5 md:mr-10 flex flex-row items-center stroke-gray-600 hover:stroke-gray-400 text-gray-600 hover:text-gray-400 px-2 py-1 bg-gray-200 hover:bg-gray-100 rounded-lg">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 26 26" stroke-width="1.5" stroke="currentColor" class="size-4 md:mr-2">
             <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
           </svg>
           <p class="text-sm hidden md:inline">search recipe</p>
         </button>
-        {% endif %}
         <!-- User Profile -->
         <div class="flex-none h-8">
           {% if session["user_id"] %}

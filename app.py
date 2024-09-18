@@ -228,7 +228,6 @@ def recipe_detail(recipe_id):
 
     # Get the rating of current user
     current_user_rating = 0
-    print(session["user_id"])
     if "user_id" in session:
         current_user_rating = db.session.execute(db.select(Rating).filter_by(recipe_id=recipe_id, user_id=session["user_id"])).scalar_one_or_none()
         current_user_rating = current_user_rating.rating if current_user_rating else 0
