@@ -62,16 +62,16 @@
     </div>
     <div class="mt-10 flex flex-col items-center py-5">
         <h2 class="font-bold text-2xl mb-5 text-center">{{ "Your rating on this recipe" if current_user_rating else "Give this recipe a rating"}}</h2>
-        <form action="/recipe/{{recipe.id}}/rate" method="post" class="flex flex-col items-center">
+        <form id="rating-form" action="/recipe/{{recipe.id}}/rate" method="post" class="flex flex-col items-center">
             <div class="rating rating-lg">
-                <input type="radio" name="rating" class="rating-hidden cursor-default" value="0" {{ "checked" if not current_user_rating }} />
+                <input type="radio" name="rating" class="rating-hidden cursor-default" value="0" {{ "checked" if not current_user_rating }} disabled/>
                 <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400 cursor-default" value="1" {{ "checked" if current_user_rating >= 1 }} />
                 <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400 cursor-default" value="2" {{ "checked" if current_user_rating >= 2 }} />
                 <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400 cursor-default" value="3" {{ "checked" if current_user_rating >= 3 }} />
                 <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400 cursor-default" value="4" {{ "checked" if current_user_rating >= 4 }} />
                 <input type="radio" name="rating" class="mask mask-star-2 bg-orange-400 cursor-default" value="5" {{ "checked" if current_user_rating == 5 }} />
             </div>
-            <button type="submit" class="btn btn-accent mt-5">{{ "re-rate" if current_user_rating else "rate"}}</button>
+            <!-- <button type="submit" class="btn btn-accent mt-5">{{ "re-rate" if current_user_rating else "rate"}}</button> -->
         </form>
     </div>
     <div id="instructions" class="mt-10">
@@ -87,4 +87,28 @@
         {% endfor %}
     </div>
 </div>
+{% endblock %}
+
+{% block javascript %}
+<script>
+    document.querySelector("#rating-form").addEventListener("change", (e) => {
+        let rating = e.target.value;
+        let url = e.target.parentNode.parentNode.action;
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            body: JSON.stringify({ "rating": rating }),
+        }).then((message => {
+            console.log(message)
+            if (message.redirected) {
+                location.replace(message.url)
+            } else {
+                location.reload()
+            }
+        }))
+    });
+</script>
 {% endblock %}

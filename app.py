@@ -308,19 +308,20 @@ def upload():
 @app.route("/recipe/<int:recipe_id>/rate", methods=["POST"])
 @login_required
 def rate_recipe(recipe_id):
-    if request.form.get("rating") == "0":
+    print("hit")
+    if request.json.get("rating") == "0":
         flash("Please pick a number of stars before rating", "error")
         return redirect("/recipe/{recipe_id}".format(recipe_id=recipe_id))
     # Adding a new row or updating the rating table
     # add rating to database if not already exists otherwise update the already existing row
     rating = db.session.execute(db.select(Rating).filter_by(user_id=session["user_id"], recipe_id=recipe_id)).scalar_one_or_none()
     if rating:
-        rating.rating = request.form.get("rating")
+        rating.rating = request.json.get("rating")
     else:
         rating = Rating(
             recipe_id = recipe_id,
             user_id = session["user_id"],
-            rating = request.form.get("rating")
+            rating = request.json.get("rating")
         )
         db.session.add(rating)
 
@@ -344,7 +345,8 @@ def rate_recipe(recipe_id):
     db.session.commit()
     
     flash("thank you for rating", "success")
-    return redirect("/recipe/{recipe_id}".format(recipe_id=recipe_id))
+    return {"message": "success"}
+    # return redirect("/recipe/{recipe_id}".format(recipe_id=recipe_id))
 
 
 # ERROR HANDLING
