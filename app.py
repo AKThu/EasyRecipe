@@ -10,7 +10,6 @@ from sqlalchemy import desc
 
 
 @app.route("/")
-@login_required
 def home():
     # newly added recipes
     new_recipes = db.session.execute(db.select(Recipe).order_by(desc(Recipe.id))).scalars().fetchmany(4)
@@ -18,8 +17,7 @@ def home():
     # top rated recipes
     top_rated_recipes = db.session.execute(db.select(Recipe).order_by(desc(Recipe.average_rating), desc(Recipe.total_ratings))).scalars().fetchmany(5)
 
-    users = db.session.execute(db.select(User).order_by(User.username)).scalars().fetchall()
-    return render_template("home.html", new_recipes=new_recipes, top_rated_recipes=top_rated_recipes, users=users)
+    return render_template("home.html", new_recipes=new_recipes, top_rated_recipes=top_rated_recipes)
 
 
 @app.route("/register", methods=["GET", "POST"])
@@ -197,7 +195,6 @@ def change_profile_image():
 
 
 @app.route("/recipes")
-@login_required
 def recipes():
     # Get url parameter from the request
     search_recipe = request.args.get("search_recipe")
@@ -213,7 +210,6 @@ def recipes():
 
 
 @app.route("/recipe/<recipe_id>")
-@login_required
 def recipe_detail(recipe_id):
     # Query recipe from database
     recipe = db.session.execute(db.select(Recipe).filter_by(id=recipe_id)).scalar_one_or_none()
@@ -231,8 +227,11 @@ def recipe_detail(recipe_id):
         recipe.cook_time_minute = recipe.cook_time_in_minutes
 
     # Get the rating of current user
-    current_user_rating = db.session.execute(db.select(Rating).filter_by(recipe_id=recipe_id, user_id=session["user_id"])).scalar_one_or_none()
-    current_user_rating = current_user_rating.rating if current_user_rating else 0
+    current_user_rating = 0
+    print(session["user_id"])
+    if "user_id" in session:
+        current_user_rating = db.session.execute(db.select(Rating).filter_by(recipe_id=recipe_id, user_id=session["user_id"])).scalar_one_or_none()
+        current_user_rating = current_user_rating.rating if current_user_rating else 0
         
     return render_template("/recipe/recipe_detail.html", recipe=recipe, current_user_rating=current_user_rating)
 
